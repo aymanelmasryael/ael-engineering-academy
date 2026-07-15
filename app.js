@@ -41,17 +41,65 @@ const AELAcademy = {
 
   async loadData() {
     try {
-      const response = await fetch('academy.json');
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      this.data = await response.json();
+      const [academyRes, questionsRes] = await Promise.all([
+        fetch('academy.json'),
+        fetch('questions.json').catch(() => ({ ok: false }))
+      ]);
+      if (!academyRes.ok) throw new Error(`HTTP ${academyRes.status}`);
+      this.data = await academyRes.json();
+      if (questionsRes.ok) {
+        const qData = await questionsRes.json();
+        this.questions = qData.questions || [];
+        this.questionIndex = this.buildQuestionIndex();
+      } else {
+        this.questions = [];
+        this.questionIndex = {};
+      }
     } catch (err) {
-      console.error('Failed to load academy.json:', err);
+      console.error('Failed to load academy data:', err);
       document.getElementById('app').innerHTML = `
         <div style="text-align:center;padding:4rem 2rem;color:var(--red);">
           <h2>Failed to load academy data</h2>
           <p style="color:var(--text-secondary);margin-top:0.5rem;">${err.message}</p>
         </div>`;
     }
+  },
+
+  questions: [],
+  questionIndex: {},
+
+  buildQuestionIndex() {
+    const idx = { byWeek: {}, byModule: {}, byDifficulty: {}, byTag: {}, byType: {} };
+    (this.questions || []).forEach(q => {
+      if (!idx.byWeek[q.week]) idx.byWeek[q.week] = [];
+      idx.byWeek[q.week].push(q);
+      if (!idx.byModule[q.module]) idx.byModule[q.module] = [];
+      idx.byModule[q.module].push(q);
+      if (!idx.byDifficulty[q.difficulty]) idx.byDifficulty[q.difficulty] = [];
+      idx.byDifficulty[q.difficulty].push(q);
+      if (!idx.byType[q.type]) idx.byType[q.type] = [];
+      idx.byType[q.type].push(q);
+      (q.tags || []).forEach(t => {
+        if (!idx.byTag[t]) idx.byTag[t] = [];
+        idx.byTag[t].push(q);
+      });
+    });
+    return idx;
+  },
+
+  getQuestionsForWeek(weekId) {
+    return this.questionIndex.byWeek?.[weekId] || this.questions.filter(q => q.week === weekId);
+  },
+
+  searchQuestions(query) {
+    if (!query) return [];
+    const q = query.toLowerCase();
+    return this.questions.filter(item =>
+      item.question.toLowerCase().includes(q) ||
+      item.answer.toLowerCase().includes(q) ||
+      (item.tags || []).some(t => t.toLowerCase().includes(q)) ||
+      (item.source || '').toLowerCase().includes(q)
+    );
   },
 
   /* ─────────────────────────────────────────────
@@ -661,12 +709,16 @@ const AELAcademy = {
     if (!query) return null;
 
     const results = [];
+
+    (this.questions || []).forEach(q => {
+      if (q.question.toLowerCase().includes(query) || q.answer.toLowerCase().includes(query) ||
+          (q.tags || []).some(t => t.toLowerCase().includes(query))) {
+        const week = this.getWeekById(q.week);
+        results.push({ type: 'qa', week, item: q });
+      }
+    });
+
     (this.data.weeks || []).forEach(week => {
-      (week.questions || []).forEach(q => {
-        if (q.question.toLowerCase().includes(query) || q.answer.toLowerCase().includes(query)) {
-          results.push({ type: 'question', week, item: q });
-        }
-      });
       (week.exercises || []).forEach(ex => {
         if (ex.title.toLowerCase().includes(query) || ex.description.toLowerCase().includes(query)) {
           results.push({ type: 'exercise', week, item: ex });
@@ -678,11 +730,6 @@ const AELAcademy = {
       (week.reference?.topics || []).forEach(topic => {
         if (topic.name.toLowerCase().includes(query) || topic.content.toLowerCase().includes(query)) {
           results.push({ type: 'topic', week, item: topic });
-        }
-      });
-      (week.interviewQuestions || []).forEach(iq => {
-        if (iq.question.toLowerCase().includes(query) || iq.expectedAnswer.toLowerCase().includes(query)) {
-          results.push({ type: 'interview', week, item: iq });
         }
       });
     });
@@ -701,14 +748,14 @@ const AELAcademy = {
       card.style.cursor = 'pointer';
 
       const typeBadge = {
-        question: '<span class="badge badge-blue">Q&A</span>',
+        qa: '<span class="badge badge-blue">Q&A</span>',
         exercise: '<span class="badge badge-beginner">Exercise</span>',
         challenge: '<span class="badge badge-intermediate">Challenge</span>',
         topic: '<span class="badge badge-teal">Topic</span>',
         interview: '<span class="badge badge-purple">Interview</span>'
       }[r.type] || '';
 
-      const heading = r.type === 'question' ? r.item.question
+      const heading = (r.type === 'qa' || r.type === 'question') ? r.item.question
         : r.type === 'interview' ? r.item.question
         : r.item.title || r.item.name || '';
 
@@ -910,44 +957,185 @@ const AELAcademy = {
   /* ── Questions Section ── */
 
   renderQuestionsSection(week) {
-    if (!week.questions?.length) return document.createDocumentFragment();
+    const questions = this.getQuestionsForWeek(week.id);
+    if (!questions || questions.length === 0) {
+      if (!week.questions?.length) return document.createDocumentFragment();
+      return this.renderLegacyQuestions(week);
+    }
 
+    const fragment = document.createDocumentFragment();
+
+    const sectionTitle = document.createElement('h3');
+    sectionTitle.className = 'section-title';
+    sectionTitle.innerHTML = `<span class="accent">&#10067;</span> Questions & Answers <span class="badge badge-blue" style="margin-left:8px">${questions.length}</span>`;
+    fragment.appendChild(sectionTitle);
+
+    const filterBar = document.createElement('div');
+    filterBar.className = 'qa-filters';
+    filterBar.innerHTML = `
+      <button class="btn btn-sm btn-primary qa-filter active" data-filter="all">All (${questions.length})</button>
+      <button class="btn btn-sm btn-secondary qa-filter" data-filter="beginner">Beginner</button>
+      <button class="btn btn-sm btn-secondary qa-filter" data-filter="intermediate">Intermediate</button>
+      <button class="btn btn-sm btn-secondary qa-filter" data-filter="advanced">Advanced</button>
+      <button class="btn btn-sm btn-secondary qa-filter" data-filter="expert">Expert</button>
+      <button class="btn btn-sm btn-secondary qa-filter" data-filter="interview">Interview</button>`;
+    fragment.appendChild(filterBar);
+
+    const questionList = document.createElement('div');
+    questionList.className = 'qa-list';
+    questionList.id = 'qa-list-' + week.id;
+
+    questions.forEach((q, i) => {
+      questionList.appendChild(this.renderQuestionCard(q, i));
+    });
+
+    fragment.appendChild(questionList);
+
+    setTimeout(() => {
+      filterBar.querySelectorAll('.qa-filter').forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBar.querySelectorAll('.qa-filter').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const filter = btn.dataset.filter;
+          questionList.querySelectorAll('.qa-card').forEach(card => {
+            if (filter === 'all') {
+              card.style.display = '';
+            } else {
+              card.style.display = card.dataset.difficulty === filter ? '' : 'none';
+            }
+          });
+        });
+      });
+    }, 0);
+
+    return fragment;
+  },
+
+  renderQuestionCard(q, index) {
+    const itemId = q.id;
+    const isOpen = this.state.expandedItems[itemId];
+    const isFav = this.state.favorites.includes(itemId);
+
+    const card = document.createElement('div');
+    card.className = 'qa-card' + (isOpen ? ' open' : '');
+    card.dataset.difficulty = q.difficulty;
+    card.dataset.id = q.id;
+
+    const typeBadge = {
+      'definition': 'badge-teal', 'conceptual': 'badge-blue', 'practical': 'badge-green',
+      'comparison': 'badge-purple', 'architecture': 'badge-pink', 'design': 'badge-gold',
+      'troubleshooting': 'badge-red', 'scenario': 'badge-purple', 'best-practices': 'badge-green',
+      'code-writing': 'badge-teal', 'case-study': 'badge-gold', 'interview': 'badge-blue'
+    }[q.type] || 'badge-blue';
+
+    const diffBadge = {
+      'beginner': 'badge-beginner', 'intermediate': 'badge-intermediate',
+      'advanced': 'badge-advanced', 'expert': 'badge-advanced', 'interview': 'badge-blue'
+    }[q.difficulty] || 'badge-blue';
+
+    let answerHtml = `<p style="line-height:1.8">${this.escapeHtml(q.answer)}</p>`;
+
+    if (q.whyCorrect) {
+      answerHtml += `<div class="qa-subsection"><h4>&#10003; Why This Answer Is Correct</h4><p>${this.escapeHtml(q.whyCorrect)}</p></div>`;
+    }
+    if (q.whyOthersIncorrect && Object.keys(q.whyOthersIncorrect).length > 0) {
+      answerHtml += `<div class="qa-subsection"><h4>&#10007; Why Other Answers Are Incorrect</h4><ul>`;
+      for (const [opt, reason] of Object.entries(q.whyOthersIncorrect)) {
+        answerHtml += `<li><strong>${this.escapeHtml(opt)}:</strong> ${this.escapeHtml(reason)}</li>`;
+      }
+      answerHtml += `</ul></div>`;
+    }
+    if (q.realWorldExample) {
+      answerHtml += `<div class="qa-subsection"><h4>&#128161; Real-World Example</h4><p>${this.escapeHtml(q.realWorldExample)}</p></div>`;
+    }
+    if (q.commonMistakes?.length) {
+      answerHtml += `<div class="qa-subsection"><h4>&#9888; Common Mistakes</h4><ul>${q.commonMistakes.map(m => `<li>${this.escapeHtml(m)}</li>`).join('')}</ul></div>`;
+    }
+    if (q.bestPractices?.length) {
+      answerHtml += `<div class="qa-subsection"><h4>&#10000; Best Practices</h4><ul>${q.bestPractices.map(p => `<li>${this.escapeHtml(p)}</li>`).join('')}</ul></div>`;
+    }
+    if (q.relatedConcepts?.length) {
+      answerHtml += `<div class="qa-subsection"><h4>&#128279; Related Concepts</h4><div class="qa-tags">${q.relatedConcepts.map(c => `<span class="qa-tag">${this.escapeHtml(c)}</span>`).join('')}</div></div>`;
+    }
+
+    const tagsHtml = (q.tags || []).map(t => `<span class="qa-tag">${this.escapeHtml(t)}</span>`).join('');
+    const readTime = q.estimatedReadingTime || '';
+    const interviewBadge = q.interviewRelevance === 'high' ? '<span class="badge badge-gold" style="font-size:0.65rem">Interview</span>' : '';
+
+    card.innerHTML = `
+      <div class="qa-header">
+        <div class="qa-header-left">
+          <span class="qa-number">${index + 1}</span>
+          <span class="badge ${typeBadge}" style="font-size:0.65rem">${q.type || 'question'}</span>
+          <span class="badge ${diffBadge}" style="font-size:0.65rem">${q.difficulty}</span>
+          ${interviewBadge}
+        </div>
+        <div class="qa-header-right">
+          <button class="qa-fav ${isFav ? 'active' : ''}" data-action="fav" title="Bookmark">&#9734;</button>
+          <button class="qa-copy" data-action="copy" title="Copy">&#128203;</button>
+        </div>
+      </div>
+      <div class="qa-question" data-action="toggle">${this.escapeHtml(q.question)}</div>
+      <div class="qa-meta">
+        ${readTime ? `<span class="qa-readtime">&#9200; ${readTime}</span>` : ''}
+        <span class="qa-source">${this.escapeHtml(q.source || '')}</span>
+      </div>
+      <div class="qa-tags-row">${tagsHtml}</div>
+      <div class="qa-answer ${isOpen ? 'show' : ''}">${answerHtml}</div>
+      <div class="qa-nav">
+        ${index > 0 ? '<button class="btn btn-sm btn-secondary" data-action="prev">&#8592; Previous</button>' : '<div></div>'}
+        <button class="btn btn-sm ${isOpen ? 'btn-primary' : 'btn-secondary'}" data-action="toggle">${isOpen ? '&#9650; Collapse' : '&#9660; Expand'}</button>
+      </div>`;
+
+    card.querySelector('[data-action="toggle"]').addEventListener('click', () => {
+      this.toggleExpand(itemId);
+      card.classList.toggle('open');
+      card.querySelector('.qa-answer').classList.toggle('show');
+      const navBtn = card.querySelector('[data-action="toggle"]');
+      navBtn.innerHTML = card.classList.contains('open') ? '&#9650; Collapse' : '&#9660; Expand';
+    });
+
+    card.querySelector('[data-action="fav"]')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      this.toggleFavorite(itemId);
+      e.target.classList.toggle('active');
+      e.target.innerHTML = isFav ? '&#9734;' : '&#9733;';
+    });
+
+    card.querySelector('[data-action="copy"]')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const text = `Q: ${q.question}\n\nA: ${q.answer}\n\nWhy correct: ${q.whyCorrect || ''}`;
+      navigator.clipboard.writeText(text).then(() => {
+        e.target.innerHTML = '&#10003;';
+        setTimeout(() => e.target.innerHTML = '&#128203;', 1500);
+      });
+    });
+
+    return card;
+  },
+
+  renderLegacyQuestions(week) {
     const fragment = document.createDocumentFragment();
     const sectionTitle = document.createElement('h3');
     sectionTitle.className = 'section-title';
-    sectionTitle.innerHTML = '<span class="accent">&#10067;</span> Interview Q&A Practice';
+    sectionTitle.innerHTML = '<span class="accent">&#10067;</span> Questions & Answers';
     fragment.appendChild(sectionTitle);
 
     week.questions.forEach((q, i) => {
       const itemId = q.id;
       const isOpen = this.state.expandedItems[itemId];
-
       const item = document.createElement('div');
-      item.className = 'question-item' + (isOpen ? ' open' : '');
-
-      const header = document.createElement('div');
-      header.className = 'question-header';
-      header.innerHTML = `
-        <span class="question-number">${i + 1}</span>
-        <span class="question-text">${this.escapeHtml(q.question)}</span>
-        <span class="badge badge-${q.difficulty}">${q.difficulty}</span>
-        <span class="question-toggle">&#9660;</span>`;
-
-      const answer = document.createElement('div');
-      answer.className = 'question-answer' + (isOpen ? ' style="display:block"' : '');
-      answer.innerHTML = `<p>${this.escapeHtml(q.answer)}</p>`;
-
-      header.addEventListener('click', () => {
+      item.className = 'qa-card' + (isOpen ? ' open' : '');
+      item.innerHTML = `
+        <div class="qa-question" data-action="toggle">${this.escapeHtml(q.question)}</div>
+        <div class="qa-answer ${isOpen ? 'show' : ''}"><p>${this.escapeHtml(q.answer)}</p></div>`;
+      item.querySelector('[data-action="toggle"]').addEventListener('click', () => {
         this.toggleExpand(itemId);
         item.classList.toggle('open');
-        answer.style.display = item.classList.contains('open') ? 'block' : 'none';
+        item.querySelector('.qa-answer').classList.toggle('show');
       });
-
-      item.appendChild(header);
-      item.appendChild(answer);
       fragment.appendChild(item);
     });
-
     return fragment;
   },
 
