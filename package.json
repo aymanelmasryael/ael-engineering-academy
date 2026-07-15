@@ -1,0 +1,22 @@
+{
+  "name": "ael-engineering-academy",
+  "version": "1.0.0",
+  "description": "AEL Engineering Academy — Learn LLM Engineering from Zero to Production",
+  "author": "Ayman Elmasry — AEL Digital Studio",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aymanelmasryael/ael-engineering-academy"
+  },
+  "homepage": "https://aymanelmasryael.github.io/ael-engineering-academy",
+  "keywords": ["llm", "engineering", "academy", "learning", "ai", "machine-learning"],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "serve": "python3 -m http.server 8080",
+    "dev": "npx serve .",
+    "build:data": "node scripts/build-data.js",
+    "validate": "node scripts/validate.js"
+  }
+}

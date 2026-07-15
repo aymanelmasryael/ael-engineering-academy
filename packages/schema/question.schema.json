@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AEL Academy Question Schema",
+  "description": "Schema for Q&A knowledge base questions",
+  "type": "object",
+  "required": ["id", "week", "module", "question", "answer", "type", "difficulty"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^w\\d+-q-\\d+$" },
+    "week": { "type": "string", "pattern": "^week-\\d+$" },
+    "module": { "type": "string", "enum": ["foundations", "core-techniques", "applied-engineering", "production"] },
+    "question": { "type": "string", "minLength": 10 },
+    "answer": { "type": "string", "minLength": 20 },
+    "type": { "type": "string", "enum": ["definition", "conceptual", "practical", "comparison", "architecture", "design", "troubleshooting", "scenario", "best-practices", "code-writing", "case-study", "interview"] },
+    "difficulty": { "type": "string", "enum": ["beginner", "intermediate", "advanced", "expert", "interview"] },
+    "whyCorrect": { "type": "string" },
+    "whyOthersIncorrect": { "type": "object" },
+    "realWorldExample": { "type": "string" },
+    "commonMistakes": { "type": "array", "items": { "type": "string" } },
+    "bestPractices": { "type": "array", "items": { "type": "string" } },
+    "relatedConcepts": { "type": "array", "items": { "type": "string" } },
+    "estimatedReadingTime": { "type": "string" },
+    "interviewRelevance": { "type": "string", "enum": ["high", "medium", "low"] },
+    "tags": { "type": "array", "items": { "type": "string" } },
+    "source": { "type": "string" },
+    "relationships": {
+      "type": "object",
+      "properties": {
+        "learningOutcome": { "type": "string" },
+        "reference": { "type": "string" },
+        "exercise": { "type": "string" },
+        "challenge": { "type": "string" },
+        "quiz": { "type": "string" },
+        "glossary": { "type": "string" }
+      }
+    }
+  }
+}
