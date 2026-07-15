@@ -1,0 +1,2457 @@
+{
+  "meta": {
+    "name": "AEL Engineering Academy",
+    "version": "1.0.0",
+    "description": "Learn LLM Engineering from zero to production",
+    "author": "Ayman Elmasry — AEL Digital Studio",
+    "readingTime": "~120 hours",
+    "stats": {
+      "modules": "4",
+      "weeks": "12",
+      "exercises": "36",
+      "challenges": "12",
+      "projects": "13",
+      "quizQuestions": "120",
+      "interviewQuestions": "60"
+    }
+  },
+  "modules": [
+    {
+      "id": "foundations",
+      "name": "Foundations",
+      "description": "Understand what LLMs are and how they work",
+      "weeks": ["week-1", "week-2", "week-3"],
+      "color": "#00FF88"
+    },
+    {
+      "id": "core-techniques",
+      "name": "Core Techniques",
+      "description": "Master the essential LLM engineering techniques",
+      "weeks": ["week-4", "week-5", "week-6"],
+      "color": "#0074FF"
+    },
+    {
+      "id": "applied-engineering",
+      "name": "Applied Engineering",
+      "description": "Build real applications with LLMs",
+      "weeks": ["week-7", "week-8", "week-9"],
+      "color": "#FFD700"
+    },
+    {
+      "id": "production",
+      "name": "Production & Capstone",
+      "description": "Build production-ready applications",
+      "weeks": ["week-10", "week-11", "week-12"],
+      "color": "#6C47FF"
+    }
+  ],
+  "weeks": [
+    {
+      "id": "week-1",
+      "module": "foundations",
+      "number": 1,
+      "title": "What are LLMs?",
+      "learningOutcomes": [
+        "Explain what an LLM is in simple terms",
+        "Differentiate between LLM and traditional ML models",
+        "Describe the training process (pre-training, fine-tuning)",
+        "Set up a Python environment for LLM development",
+        "Make a basic API call to an LLM"
+      ],
+      "reference": {
+        "topics": [
+          {
+            "name": "What is an LLM?",
+            "content": "Large Language Models (LLMs) are neural networks trained on massive text corpora to understand and generate human language. Unlike traditional ML models that are trained for specific tasks, LLMs are general-purpose models that can be adapted to many tasks through prompting or fine-tuning.",
+            "keyPoints": [
+              "LLMs are trained on trillions of tokens",
+              "They use transformer architecture",
+              "They can perform many tasks without task-specific training",
+              "They are the foundation of modern AI applications"
+            ]
+          },
+          {
+            "name": "LLM vs Traditional ML",
+            "content": "Traditional ML models are trained for specific tasks with labeled data. LLMs are pre-trained on general text and can be adapted to many tasks. This is a fundamental shift in how we build AI systems.",
+            "keyPoints": [
+              "Traditional ML: Task-specific, labeled data, small datasets",
+              "LLMs: General-purpose, self-supervised, massive datasets",
+              "LLMs can be prompted without training",
+              "LLMs can be fine-tuned for specific tasks"
+            ]
+          },
+          {
+            "name": "Training Process",
+            "content": "LLM training involves two main stages: pre-training and fine-tuning. Pre-training teaches the model language patterns. Fine-tuning adapts it to specific tasks or domains.",
+            "keyPoints": [
+              "Pre-training: Learn language patterns from massive text",
+              "Fine-tuning: Adapt to specific tasks or domains",
+              "RLHF: Align model with human preferences",
+              "Deployment: Serve the model to users"
+            ]
+          }
+        ]
+      },
+      "questions": [
+        {
+          "id": "q1-1",
+          "difficulty": "beginner",
+          "question": "What does LLM stand for?",
+          "answer": "Large Language Model. It's a neural network trained on massive text data to understand and generate human language.",
+          "related": ["week-1"]
+        },
+        {
+          "id": "q1-2",
+          "difficulty": "beginner",
+          "question": "How are LLMs different from traditional ML models?",
+          "answer": "Traditional ML models are trained for specific tasks with labeled data. LLMs are pre-trained on general text and can be adapted to many tasks through prompting or fine-tuning.",
+          "related": ["week-1"]
+        },
+        {
+          "id": "q1-3",
+          "difficulty": "intermediate",
+          "question": "What is the difference between pre-training and fine-tuning?",
+          "answer": "Pre-training teaches the model language patterns from massive text corpora. Fine-tuning adapts the pre-trained model to specific tasks or domains using smaller, task-specific datasets.",
+          "related": ["week-1"]
+        },
+        {
+          "id": "q1-4",
+          "difficulty": "intermediate",
+          "question": "What is RLHF?",
+          "answer": "Reinforcement Learning from Human Feedback. It's a technique to align LLM outputs with human preferences by training a reward model on human rankings of model outputs.",
+          "related": ["week-1"]
+        },
+        {
+          "id": "q1-5",
+          "difficulty": "advanced",
+          "question": "Why are LLMs considered general-purpose models?",
+          "answer": "LLMs can perform many different tasks (translation, summarization, coding, reasoning) without task-specific training. They can be adapted to new tasks through prompting (zero-shot, few-shot) or fine-tuning.",
+          "related": ["week-1"]
+        },
+        {
+          "id": "q1-6",
+          "difficulty": "beginner",
+          "question": "What is a token in the context of LLMs?",
+          "answer": "A token is a chunk of text that the model processes. It can be a word, part of a word, or a character. LLMs process text as sequences of tokens.",
+          "related": ["week-1", "week-3"]
+        },
+        {
+          "id": "q1-7",
+          "difficulty": "intermediate",
+          "question": "What is the context window of an LLM?",
+          "answer": "The context window is the maximum number of tokens an LLM can process in a single request. It includes both input and output tokens.",
+          "related": ["week-1"]
+        },
+        {
+          "id": "q1-8",
+          "difficulty": "advanced",
+          "question": "What are the main challenges in deploying LLMs?",
+          "answer": "Key challenges include: high computational cost, latency, memory requirements, cost optimization, safety concerns, hallucination, and keeping the model updated.",
+          "related": ["week-1", "week-9"]
+        },
+        {
+          "id": "q1-9",
+          "difficulty": "beginner",
+          "question": "What is an API in the context of LLMs?",
+          "answer": "An API (Application Programming Interface) allows you to interact with an LLM remotely. You send a request (prompt) and receive a response (completion) over the internet.",
+          "related": ["week-1"]
+        },
+        {
+          "id": "q1-10",
+          "difficulty": "intermediate",
+          "question": "What are the main LLM providers?",
+          "answer": "Major providers include OpenAI (GPT-4), Anthropic (Claude), Google (Gemini), Meta (Llama), and Mistral. Each offers different models with varying capabilities and pricing.",
+          "related": ["week-1"]
+        }
+      ],
+      "exercises": [
+        {
+          "id": "ex1-1",
+          "difficulty": "basic",
+          "title": "Explain LLM to a Non-Technical Person",
+          "description": "Write a 200-word explanation of what an LLM is for someone who has no technical background. Use analogies and simple language.",
+          "expectedTime": "30 minutes"
+        },
+        {
+          "id": "ex1-2",
+          "difficulty": "intermediate",
+          "title": "Compare LLM Providers",
+          "description": "Create a comparison table of at least 3 LLM providers (OpenAI, Anthropic, Google). Include: model names, context window, pricing, and strengths.",
+          "expectedTime": "45 minutes"
+        },
+        {
+          "id": "ex1-3",
+          "difficulty": "advanced",
+          "title": "Set Up LLM Development Environment",
+          "description": "Set up a Python environment with: Python 3.10+, pip, virtual environment, API keys for at least one provider, and a simple script that makes an API call.",
+          "expectedTime": "60 minutes"
+        }
+      ],
+      "challenge": {
+        "id": "ch1",
+        "title": "Build a Text Summarizer",
+        "description": "Build a Python script that takes a long text as input and returns a summary using an LLM API. Support different summary lengths (short, medium, long).",
+        "requirements": [
+          "Accept text input from file or stdin",
+          "Call LLM API for summarization",
+          "Support different summary lengths",
+          "Handle errors gracefully",
+          "Include usage instructions in README"
+        ],
+        "expectedTime": "2 hours"
+      },
+      "miniProject": null,
+      "quiz": {
+        "id": "quiz1",
+        "questions": 10,
+        "timeLimit": "30 minutes",
+        "passingScore": 80
+      },
+      "interviewQuestions": [
+        {
+          "question": "Explain what an LLM is and how it differs from traditional ML models.",
+          "expectedAnswer": "LLMs are large neural networks trained on massive text data to understand and generate language. Unlike traditional ML models that are task-specific, LLMs are general-purpose and can be adapted to many tasks.",
+          "difficulty": "beginner"
+        },
+        {
+          "question": "What is the training process for an LLM?",
+          "expectedAnswer": "Pre-training on massive text corpora to learn language patterns, then fine-tuning on task-specific data, and optionally RLHF to align with human preferences.",
+          "difficulty": "intermediate"
+        },
+        {
+          "question": "What are the main challenges in deploying LLMs in production?",
+          "expectedAnswer": "Cost, latency, memory, safety, hallucination, keeping models updated, and handling edge cases.",
+          "difficulty": "advanced"
+        }
+      ],
+      "completionCriteria": {
+        "required": ["ex1-1", "ex1-2", "ex1-3", "ch1", "quiz1"],
+        "minimumQuizScore": 80
+      }
+    },
+    {
+      "id": "week-2",
+      "module": "foundations",
+      "number": 2,
+      "title": "Transformer Architecture",
+      "learningOutcomes": [
+        "Explain the self-attention mechanism",
+        "Understand multi-head attention and its purpose",
+        "Describe the encoder-decoder architecture",
+        "Explain positional encoding and why it's needed",
+        "Compare decoder-only vs encoder-decoder models"
+      ],
+      "reference": {
+        "topics": [
+          {
+            "name": "Self-Attention Mechanism",
+            "content": "Self-attention allows each token in a sequence to attend to every other token, computing relevance scores. It uses Query, Key, and Value matrices to determine how much focus each token should place on others.",
+            "keyPoints": [
+              "Q (Query), K (Key), V (Value) matrices are learned",
+              "Attention scores are computed as softmax(QK^T / sqrt(d_k))",
+              "Each token gets a weighted sum of all other tokens' values",
+              "Enables long-range dependency modeling"
+            ]
+          },
+          {
+            "name": "Multi-Head Attention",
+            "content": "Multi-head attention runs multiple attention operations in parallel, each learning different relationship patterns. The outputs are concatenated and linearly transformed to produce the final attention output.",
+            "keyPoints": [
+              "Multiple heads learn different types of relationships",
+              "Heads operate independently then combine",
+              "Improves model's ability to focus on diverse information",
+              "Typical models have 8-64 attention heads"
+            ]
+          },
+          {
+            "name": "Positional Encoding",
+            "content": "Since transformers process all tokens simultaneously, they need explicit position information. Positional encoding adds position signals to token embeddings so the model knows token order.",
+            "keyPoints": [
+              "Transformers have no inherent notion of sequence order",
+              "Sinusoidal functions or learned embeddings encode position",
+              "Relative positional encoding (RoPE) is now preferred",
+              "Enables the model to understand word order"
+            ]
+          },
+          {
+            "name": "Encoder vs Decoder vs Encoder-Decoder",
+            "content": "Encoder models (BERT) process input bidirectionally. Decoder models (GPT) generate text autoregressively. Encoder-decoder models (T5, BART) use both for tasks like translation.",
+            "keyPoints": [
+              "Encoder: Bidirectional, good for understanding tasks",
+              "Decoder: Autoregressive, good for generation tasks",
+              "Encoder-decoder: Good for sequence-to-sequence tasks",
+              "Most modern LLMs use decoder-only architecture"
+            ]
+          }
+        ]
+      },
+      "questions": [
+        {
+          "id": "q2-1",
+          "difficulty": "beginner",
+          "question": "What is the transformer architecture?",
+          "answer": "The transformer is a neural network architecture based on self-attention mechanisms. It processes all tokens in a sequence in parallel rather than sequentially, making it highly efficient and effective for language tasks.",
+          "related": ["week-2"]
+        },
+        {
+          "id": "q2-2",
+          "difficulty": "beginner",
+          "question": "What is self-attention?",
+          "answer": "Self-attention is a mechanism that allows each token in a sequence to compute relevance scores with every other token. It helps the model understand relationships between words regardless of their distance in the text.",
+          "related": ["week-2"]
+        },
+        {
+          "id": "q2-3",
+          "difficulty": "intermediate",
+          "question": "Why does the transformer use Q, K, and V matrices?",
+          "answer": "Q (Query) represents what a token is looking for. K (Key) represents what a token offers. V (Value) is the actual content. The attention score is computed between Q and K, then used to weight V values.",
+          "related": ["week-2"]
+        },
+        {
+          "id": "q2-4",
+          "difficulty": "intermediate",
+          "question": "What is the role of positional encoding?",
+          "answer": "Positional encoding adds information about token position to embeddings. Without it, the transformer would treat the input as a bag of words with no understanding of word order.",
+          "related": ["week-2"]
+        },
+        {
+          "id": "q2-5",
+          "difficulty": "advanced",
+          "question": "How does multi-head attention differ from single-head attention?",
+          "answer": "Multi-head attention runs multiple attention operations in parallel, each learning different relationship patterns. The outputs are concatenated and projected. This allows the model to capture diverse relationships simultaneously.",
+          "related": ["week-2"]
+        },
+        {
+          "id": "q2-6",
+          "difficulty": "beginner",
+          "question": "What is the encoder in a transformer?",
+          "answer": "The encoder processes the input sequence bidirectionally, creating contextual representations. Each token can attend to all other tokens. It's used in models like BERT for understanding tasks.",
+          "related": ["week-2"]
+        },
+        {
+          "id": "q2-7",
+          "difficulty": "intermediate",
+          "question": "What is the decoder in a transformer?",
+          "answer": "The decoder generates output tokens autoregressively, one at a time. It uses masked self-attention to prevent attending to future tokens and cross-attention to attend to encoder outputs.",
+          "related": ["week-2"]
+        },
+        {
+          "id": "q2-8",
+          "difficulty": "advanced",
+          "question": "Why do most modern LLMs use decoder-only architecture?",
+          "answer": "Decoder-only models are simpler, scale better, and are naturally suited for generative tasks. They can handle both understanding and generation through autoregressive prediction, making them versatile.",
+          "related": ["week-2"]
+        },
+        {
+          "id": "q2-9",
+          "difficulty": "beginner",
+          "question": "What is attention score normalization?",
+          "answer": "Attention scores are divided by the square root of the key dimension (sqrt(d_k)) before softmax. This prevents the softmax from saturating, which would cause gradients to vanish during training.",
+          "related": ["week-2"]
+        },
+        {
+          "id": "q2-10",
+          "difficulty": "advanced",
+          "question": "How does the transformer handle long-range dependencies?",
+          "answer": "Self-attention has O(1) path length between any two tokens, unlike RNNs which have O(n). This means information can flow directly between distant tokens without being compressed through intermediate steps.",
+          "related": ["week-2"]
+        }
+      ],
+      "exercises": [
+        {
+          "id": "ex2-1",
+          "difficulty": "basic",
+          "title": "Draw the Transformer Architecture",
+          "description": "Create a detailed diagram of the transformer architecture showing encoder, decoder, self-attention, cross-attention, feed-forward layers, and residual connections.",
+          "expectedTime": "45 minutes"
+        },
+        {
+          "id": "ex2-2",
+          "difficulty": "intermediate",
+          "title": "Implement Self-Attention from Scratch",
+          "description": "Write Python code implementing single-head self-attention using only NumPy. Include Q/K/V computation, attention scoring, and weighted output.",
+          "expectedTime": "90 minutes"
+        },
+        {
+          "id": "ex2-3",
+          "difficulty": "advanced",
+          "title": "Compare Architectures",
+          "description": "Research and compare at least 4 different transformer variants (BERT, GPT, T5, LLaMA). Document their architectural differences, use cases, and training objectives in a structured report.",
+          "expectedTime": "60 minutes"
+        }
+      ],
+      "challenge": {
+        "id": "ch2",
+        "title": "Build a Mini Transformer",
+        "description": "Implement a minimal transformer model from scratch using PyTorch. Train it on a simple text classification task and compare its performance to an RNN baseline.",
+        "requirements": [
+          "Implement multi-head self-attention layer",
+          "Implement positional encoding",
+          "Train on IMDB sentiment dataset",
+          "Compare accuracy with a simple RNN",
+          "Document architecture choices and results"
+        ],
+        "expectedTime": "4 hours"
+      },
+      "miniProject": null,
+      "quiz": {
+        "id": "quiz2",
+        "questions": 10,
+        "timeLimit": "30 minutes",
+        "passingScore": 80
+      },
+      "interviewQuestions": [
+        {
+          "question": "Explain the self-attention mechanism in detail.",
+          "expectedAnswer": "Self-attention computes Q, K, V matrices from input embeddings. Attention scores are QK^T/sqrt(d_k), softmaxed, then used to weight V. This lets each token attend to all others based on relevance.",
+          "difficulty": "intermediate"
+        },
+        {
+          "question": "Why is scaling by sqrt(d_k) necessary in attention?",
+          "answer": "Without scaling, dot products grow large with dimension, pushing softmax into regions with tiny gradients. Scaling by sqrt(d_k) keeps variance stable, ensuring smooth gradient flow during training.",
+          "difficulty": "advanced"
+        },
+        {
+          "question": "What are the advantages of decoder-only transformers for LLMs?",
+          "expectedAnswer": "Simpler architecture, better scaling properties, natural autoregressive generation, unified training objective (next-token prediction), and ability to handle both understanding and generation tasks.",
+          "difficulty": "advanced"
+        }
+      ],
+      "completionCriteria": {
+        "required": ["ex2-1", "ex2-2", "ex2-3", "ch2", "quiz2"],
+        "minimumQuizScore": 80
+      }
+    },
+    {
+      "id": "week-3",
+      "module": "foundations",
+      "number": 3,
+      "title": "Tokenization",
+      "learningOutcomes": [
+        "Explain what tokenization is and why it matters",
+        "Compare different tokenization algorithms (BPE, WordPiece, SentencePiece)",
+        "Understand how tokenization affects model performance",
+        "Implement basic tokenization in Python",
+        "Handle multilingual tokenization challenges"
+      ],
+      "reference": {
+        "topics": [
+          {
+            "name": "What is Tokenization?",
+            "content": "Tokenization is the process of splitting text into tokens that the model can process. It's a critical preprocessing step that directly affects model performance, vocabulary size, and the ability to handle different languages.",
+            "keyPoints": [
+              "Converts raw text into numerical token IDs",
+              "Determines the vocabulary the model uses",
+              "Affects context window utilization and cost",
+              "Different tokenizers suit different use cases"
+            ]
+          },
+          {
+            "name": "BPE (Byte Pair Encoding)",
+            "content": "BPE is the most common tokenization algorithm used in modern LLMs. It starts with individual characters and iteratively merges the most frequent pairs, building up a vocabulary of subword tokens.",
+            "keyPoints": [
+              "Starts with character-level vocabulary",
+              "Iteratively merges most frequent byte pairs",
+              "Balances between word-level and character-level",
+              "Used by GPT, LLaMA, and most modern LLMs"
+            ]
+          },
+          {
+            "name": "WordPiece and SentencePiece",
+            "content": "WordPiece is similar to BPE but uses a likelihood-based merging criterion. SentencePiece is a language-agnostic tokenizer that works directly on raw text without preprocessing.",
+            "keyPoints": [
+              "WordPiece: Used by BERT, uses log-likelihood merging",
+              "SentencePiece: Language-agnostic, no pre-tokenization",
+              "Both handle subword tokenization effectively",
+              "SentencePiece supports byte fallback for unknown tokens"
+            ]
+          },
+          {
+            "name": "Tokenization Impact on Models",
+            "content": "Tokenization directly impacts context window utilization, API costs, model accuracy, and multilingual performance. Poor tokenization can waste context window space and increase costs.",
+            "keyPoints": [
+              "Common words get fewer tokens, rare words get more",
+              "Code and technical content may be tokenized poorly",
+              "Multilingual models need diverse tokenizers",
+              "Token counts affect API pricing"
+            ]
+          }
+        ]
+      },
+      "questions": [
+        {
+          "id": "q3-1",
+          "difficulty": "beginner",
+          "question": "What is tokenization?",
+          "answer": "Tokenization is the process of splitting text into smaller units (tokens) that can be processed by the model. Tokens can be words, subwords, or characters.",
+          "related": ["week-3"]
+        },
+        {
+          "id": "q3-2",
+          "difficulty": "beginner",
+          "question": "Why can't LLMs process raw text directly?",
+          "answer": "LLMs work with numbers. Tokenization converts text into numerical token IDs that the model can process through its embedding and attention layers.",
+          "related": ["week-3"]
+        },
+        {
+          "id": "q3-3",
+          "difficulty": "intermediate",
+          "question": "What is BPE and how does it work?",
+          "answer": "Byte Pair Encoding starts with individual bytes/characters and iteratively merges the most frequent pairs. It builds up a vocabulary of subword tokens that balance between word and character level.",
+          "related": ["week-3"]
+        },
+        {
+          "id": "q3-4",
+          "difficulty": "intermediate",
+          "question": "How does tokenization affect API costs?",
+          "answer": "API providers charge per token. If tokenization is inefficient, the same text requires more tokens, increasing costs. For example, code or non-English text may tokenize poorly.",
+          "related": ["week-3"]
+        },
+        {
+          "id": "q3-5",
+          "difficulty": "advanced",
+          "question": "What is the difference between BPE and WordPiece?",
+          "answer": "BPE merges the most frequent byte pairs. WordPiece merges pairs that maximize the likelihood of the training data. BPE is frequency-based, WordPiece is likelihood-based.",
+          "related": ["week-3"]
+        },
+        {
+          "id": "q3-6",
+          "difficulty": "beginner",
+          "question": "What is a subword token?",
+          "answer": "A subword token is a piece of a word, like 'un' + 'break' + 'able'. Subword tokenization allows models to handle rare words by breaking them into known pieces.",
+          "related": ["week-3"]
+        },
+        {
+          "id": "q3-7",
+          "difficulty": "intermediate",
+          "question": "Why is SentencePiece considered language-agnostic?",
+          "answer": "SentencePiece works directly on raw Unicode text without language-specific preprocessing. It doesn't rely on spaces as word boundaries, making it work well for languages without spaces (Chinese, Japanese).",
+          "related": ["week-3"]
+        },
+        {
+          "id": "q3-8",
+          "difficulty": "advanced",
+          "question": "How does tokenization affect multilingual model performance?",
+          "answer": "Different languages tokenize at different rates. English text often uses fewer tokens per word than other languages. This means non-English users pay more and get less effective context window utilization.",
+          "related": ["week-3"]
+        },
+        {
+          "id": "q3-9",
+          "difficulty": "beginner",
+          "question": "What is a vocabulary in the context of tokenization?",
+          "answer": "The vocabulary is the complete set of tokens that the model can recognize. Each token maps to a unique numerical ID. Larger vocabularies handle more words directly but require more parameters.",
+          "related": ["week-3"]
+        },
+        {
+          "id": "q3-10",
+          "difficulty": "advanced",
+          "question": "How do you handle out-of-vocabulary tokens?",
+          "answer": "Modern tokenizers handle unknown tokens through byte fallback (encoding as individual bytes), subword decomposition (breaking into known pieces), or special UNK tokens. BPE with byte fallback is most common.",
+          "related": ["week-3"]
+        }
+      ],
+      "exercises": [
+        {
+          "id": "ex3-1",
+          "difficulty": "basic",
+          "title": "Tokenize and Count",
+          "description": "Write a script that tokenizes text using tiktoken (OpenAI's tokenizer) and shows the token count, token list, and token IDs for a given input text.",
+          "expectedTime": "30 minutes"
+        },
+        {
+          "id": "ex3-2",
+          "difficulty": "intermediate",
+          "title": "Compare Tokenizers",
+          "description": "Compare how different tokenizers (tiktoken, HuggingFace, SentencePiece) tokenize the same text. Show token counts, token boundaries, and vocabulary sizes.",
+          "expectedTime": "60 minutes"
+        },
+        {
+          "id": "ex3-3",
+          "difficulty": "advanced",
+          "title": "Implement Basic BPE",
+          "description": "Implement a basic BPE tokenizer from scratch in Python. Train it on a small text corpus and demonstrate encoding/decoding of new text.",
+          "expectedTime": "90 minutes"
+        }
+      ],
+      "challenge": {
+        "id": "ch3",
+        "title": "Build a Token Analyzer",
+        "description": "Build a tool that analyzes tokenization efficiency for different providers. Input text and compare token counts, estimated costs, and context window utilization across multiple providers.",
+        "requirements": [
+          "Support at least 3 tokenizer implementations",
+          "Calculate token counts and costs",
+          "Show which tokens are most/least efficient",
+          "Visualize token boundaries in the original text",
+          "Generate a cost comparison report"
+        ],
+        "expectedTime": "3 hours"
+      },
+      "miniProject": null,
+      "quiz": {
+        "id": "quiz3",
+        "questions": 10,
+        "timeLimit": "30 minutes",
+        "passingScore": 80
+      },
+      "interviewQuestions": [
+        {
+          "question": "Why is tokenization important for LLM engineering?",
+          "expectedAnswer": "Tokenization determines how text is processed, affects context window utilization, impacts API costs, and influences model performance especially for non-English text and code.",
+          "difficulty": "beginner"
+        },
+        {
+          "question": "Explain how BPE tokenization works step by step.",
+          "expectedAnswer": "Start with character-level tokens. Find the most frequent pair of adjacent tokens. Merge them into a new token. Repeat until desired vocabulary size is reached.",
+          "difficulty": "intermediate"
+        },
+        {
+          "question": "How would you optimize tokenization for a multilingual application?",
+          "expectedAnswer": "Choose a tokenizer trained on diverse multilingual data, consider vocabulary size trade-offs, evaluate tokenization rates per language, and possibly use language-specific tokenizers.",
+          "difficulty": "advanced"
+        }
+      ],
+      "completionCriteria": {
+        "required": ["ex3-1", "ex3-2", "ex3-3", "ch3", "quiz3"],
+        "minimumQuizScore": 80
+      }
+    },
+    {
+      "id": "week-4",
+      "module": "core-techniques",
+      "number": 4,
+      "title": "Prompt Engineering",
+      "learningOutcomes": [
+        "Master zero-shot and few-shot prompting techniques",
+        "Design effective system prompts for different tasks",
+        "Use chain-of-thought reasoning in prompts",
+        "Implement prompt templates and chaining",
+        "Evaluate and optimize prompt performance"
+      ],
+      "reference": {
+        "topics": [
+          {
+            "name": "Prompt Engineering Fundamentals",
+            "content": "Prompt engineering is the art and science of designing inputs that guide LLMs to produce desired outputs. Good prompts are clear, specific, and provide enough context for the model to understand the task.",
+            "keyPoints": [
+              "Clear instructions improve output quality",
+              "Context and examples guide the model",
+              "Prompt structure affects reasoning ability",
+              "Iteration and testing are essential"
+            ]
+          },
+          {
+            "name": "Zero-Shot and Few-Shot Prompting",
+            "content": "Zero-shot prompting asks the model to perform a task without examples. Few-shot prompting provides examples of the desired input-output format. Few-shot typically produces more consistent and accurate results.",
+            "keyPoints": [
+              "Zero-shot: No examples, relies on model's pre-training",
+              "Few-shot: 2-5 examples improve consistency",
+              "Example quality matters more than quantity",
+              "Demonstrate the exact format you want"
+            ]
+          },
+          {
+            "name": "Chain-of-Thought Prompting",
+            "content": "Chain-of-thought (CoT) prompting asks the model to show its reasoning step by step. This dramatically improves performance on complex reasoning tasks like math, logic, and multi-step problems.",
+            "keyPoints": [
+              "Ask model to 'think step by step'",
+              "Improves accuracy on complex tasks",
+              "Can be combined with few-shot examples",
+              "Enables debugging of model reasoning"
+            ]
+          },
+          {
+            "name": "Advanced Prompt Techniques",
+            "content": "Techniques like self-consistency, tree-of-thought, and prompt chaining enable more complex reasoning. Structured output formats (JSON, XML) make prompts more parseable and reliable.",
+            "keyPoints": [
+              "Prompt chaining: Break complex tasks into steps",
+              "Self-consistency: Sample multiple paths, take majority vote",
+              "Structured output: Request specific formats",
+              "Role-playing: Assign expertise to the model"
+            ]
+          }
+        ]
+      },
+      "questions": [
+        {
+          "id": "q4-1",
+          "difficulty": "beginner",
+          "question": "What is prompt engineering?",
+          "answer": "Prompt engineering is designing input text to guide LLMs to produce desired outputs. It involves crafting clear instructions, providing context, and choosing the right techniques for each task.",
+          "related": ["week-4"]
+        },
+        {
+          "id": "q4-2",
+          "difficulty": "beginner",
+          "question": "What is zero-shot prompting?",
+          "answer": "Zero-shot prompting asks the model to perform a task without providing any examples. The model relies entirely on its pre-trained knowledge to understand and complete the task.",
+          "related": ["week-4"]
+        },
+        {
+          "id": "q4-3",
+          "difficulty": "intermediate",
+          "question": "How does few-shot prompting improve results?",
+          "answer": "Few-shot prompting provides examples of the desired input-output format. This helps the model understand the expected pattern, tone, and structure, leading to more consistent and accurate outputs.",
+          "related": ["week-4"]
+        },
+        {
+          "id": "q4-4",
+          "difficulty": "intermediate",
+          "question": "What is chain-of-thought prompting?",
+          "answer": "Chain-of-thought prompting asks the model to explain its reasoning step by step before giving a final answer. This improves accuracy on complex reasoning tasks like math and logic.",
+          "related": ["week-4"]
+        },
+        {
+          "id": "q4-5",
+          "difficulty": "advanced",
+          "question": "How do you optimize prompts for production systems?",
+          "answer": "Use version control for prompts, test with diverse inputs, measure quality metrics, implement fallback strategies, cache common prompts, and use structured output formats for reliable parsing.",
+          "related": ["week-4"]
+        },
+        {
+          "id": "q4-6",
+          "difficulty": "beginner",
+          "question": "What is a system prompt?",
+          "answer": "A system prompt sets the model's role, behavior, and constraints. It's provided before the user message and establishes the context for the entire conversation.",
+          "related": ["week-4"]
+        },
+        {
+          "id": "q4-7",
+          "difficulty": "intermediate",
+          "question": "What is prompt chaining?",
+          "answer": "Prompt chaining breaks a complex task into multiple simpler prompts, where each prompt's output feeds into the next. This makes complex workflows more manageable and debuggable.",
+          "related": ["week-4"]
+        },
+        {
+          "id": "q4-8",
+          "difficulty": "advanced",
+          "question": "How does temperature affect prompt engineering?",
+          "answer": "Temperature controls randomness in outputs. Low temperature (0-0.3) gives deterministic, focused outputs. High temperature (0.7-1.0) gives creative, diverse outputs. The choice depends on the task.",
+          "related": ["week-4"]
+        },
+        {
+          "id": "q4-9",
+          "difficulty": "beginner",
+          "question": "What makes a good prompt?",
+          "answer": "A good prompt is clear, specific, provides relevant context, specifies the desired format, and includes constraints. It should leave minimal room for misinterpretation.",
+          "related": ["week-4"]
+        },
+        {
+          "id": "q4-10",
+          "difficulty": "advanced",
+          "question": "What is self-consistency prompting?",
+          "answer": "Self-consistency generates multiple responses to the same prompt with different reasoning paths, then selects the most frequent answer. It improves accuracy on complex reasoning tasks.",
+          "related": ["week-4"]
+        }
+      ],
+      "exercises": [
+        {
+          "id": "ex4-1",
+          "difficulty": "basic",
+          "title": "Write a System Prompt",
+          "description": "Write a system prompt for a customer support chatbot that handles billing inquiries. Include role, tone, constraints, and output format.",
+          "expectedTime": "30 minutes"
+        },
+        {
+          "id": "ex4-2",
+          "difficulty": "intermediate",
+          "title": "Build a Few-Shot Classifier",
+          "description": "Create a prompt that classifies customer reviews into positive, negative, and neutral using few-shot examples. Test with 10 different reviews.",
+          "expectedTime": "60 minutes"
+        },
+        {
+          "id": "ex4-3",
+          "difficulty": "advanced",
+          "title": "Design a Prompt Chain",
+          "description": "Design and implement a prompt chain that takes a research topic, generates questions, searches for answers, and produces a summary report. Each step should be a separate prompt.",
+          "expectedTime": "90 minutes"
+        }
+      ],
+      "challenge": {
+        "id": "ch4",
+        "title": "Build a Prompt Engineering Toolkit",
+        "description": "Build a Python library for prompt engineering that includes: prompt templates, few-shot example management, chain-of-thought scaffolding, output parsing, and prompt versioning.",
+        "requirements": [
+          "Prompt template system with variables",
+          "Few-shot example loading and formatting",
+          "CoT prompting helpers",
+          "Output parsing (JSON, markdown, structured)",
+          "Prompt versioning and A/B testing support"
+        ],
+        "expectedTime": "4 hours"
+      },
+      "miniProject": null,
+      "quiz": {
+        "id": "quiz4",
+        "questions": 10,
+        "timeLimit": "30 minutes",
+        "passingScore": 80
+      },
+      "interviewQuestions": [
+        {
+          "question": "How would you improve a prompt that produces inconsistent outputs?",
+          "expectedAnswer": "Add few-shot examples, be more specific about output format, use structured output requests, reduce temperature, and add explicit constraints.",
+          "difficulty": "intermediate"
+        },
+        {
+          "question": "When would you use chain-of-thought vs few-shot prompting?",
+          "expectedAnswer": "Use CoT for complex reasoning tasks. Use few-shot for classification, formatting, and pattern matching. They can be combined for maximum effectiveness.",
+          "difficulty": "intermediate"
+        },
+        {
+          "question": "How do you handle prompt injection attacks?",
+          "expectedAnswer": "Validate inputs, use system prompts to set boundaries, implement output filtering, separate user input from instructions, and test adversarial inputs.",
+          "difficulty": "advanced"
+        }
+      ],
+      "completionCriteria": {
+        "required": ["ex4-1", "ex4-2", "ex4-3", "ch4", "quiz4"],
+        "minimumQuizScore": 80
+      }
+    },
+    {
+      "id": "week-5",
+      "module": "core-techniques",
+      "number": 5,
+      "title": "Fine-tuning",
+      "learningOutcomes": [
+        "Understand when fine-tuning is necessary",
+        "Prepare datasets for fine-tuning",
+        "Execute fine-tuning using popular frameworks",
+        "Evaluate fine-tuned model performance",
+        "Optimize hyperparameters for fine-tuning"
+      ],
+      "reference": {
+        "topics": [
+          {
+            "name": "When to Fine-tune",
+            "content": "Fine-tuning is necessary when prompting alone doesn't achieve the desired performance. It's useful for domain-specific tasks, consistent output formatting, reducing latency, and reducing token costs.",
+            "keyPoints": [
+              "Prompting fails on specialized domain tasks",
+              "When consistent output format is critical",
+              "When latency needs to be reduced",
+              "When you need to reduce per-request token costs"
+            ]
+          },
+          {
+            "name": "Dataset Preparation",
+            "content": "Fine-tuning requires high-quality training data in the right format. Data should be representative of the target task, properly formatted, and split into train/validation sets.",
+            "keyPoints": [
+              "Data quality matters more than quantity",
+              "Consistent format across all examples",
+              "Balanced representation of edge cases",
+              "Separate train and validation sets"
+            ]
+          },
+          {
+            "name": "Fine-tuning Methods",
+            "content": "Full fine-tuning updates all model parameters. LoRA and QLoRA update only a small subset, making fine-tuning accessible on consumer hardware. PEFT methods reduce computational requirements dramatically.",
+            "keyPoints": [
+              "Full fine-tuning: Update all parameters (expensive)",
+              "LoRA: Low-Rank Adaptation (parameter efficient)",
+              "QLoRA: Quantized LoRA (even more efficient)",
+              "PEFT: Parameter-Efficient Fine-Tuning methods"
+            ]
+          },
+          {
+            "name": "Evaluation and Optimization",
+            "content": "After fine-tuning, evaluate the model on held-out data. Monitor metrics like loss, accuracy, and task-specific metrics. Adjust hyperparameters like learning rate, batch size, and epochs.",
+            "keyPoints": [
+              "Track training and validation loss curves",
+              "Use task-specific evaluation metrics",
+              "Avoid overfitting with early stopping",
+              "Log experiments for reproducibility"
+            ]
+          }
+        ]
+      },
+      "questions": [
+        {
+          "id": "q5-1",
+          "difficulty": "beginner",
+          "question": "When should you fine-tune an LLM?",
+          "answer": "Fine-tune when prompting alone can't achieve desired performance, when you need consistent output formats, domain-specific knowledge, reduced latency, or lower per-request costs.",
+          "related": ["week-5"]
+        },
+        {
+          "id": "q5-2",
+          "difficulty": "beginner",
+          "question": "What is the difference between fine-tuning and prompt engineering?",
+          "answer": "Prompt engineering modifies the input to guide the model. Fine-tuning modifies the model's weights to encode new knowledge or behavior. Fine-tuning requires training data and compute.",
+          "related": ["week-5", "week-4"]
+        },
+        {
+          "id": "q5-3",
+          "difficulty": "intermediate",
+          "question": "What is LoRA and why is it used?",
+          "answer": "LoRA (Low-Rank Adaptation) freezes the original model and trains small adapter matrices. It dramatically reduces the number of trainable parameters, making fine-tuning feasible on consumer hardware.",
+          "related": ["week-5"]
+        },
+        {
+          "id": "q5-4",
+          "difficulty": "intermediate",
+          "question": "How much data do you need for fine-tuning?",
+          "answer": "It depends on the task. Generally, 500-10,000 high-quality examples are sufficient. Quality matters more than quantity. Start small and increase if needed.",
+          "related": ["week-5"]
+        },
+        {
+          "id": "q5-5",
+          "difficulty": "advanced",
+          "question": "What is catastrophic forgetting in fine-tuning?",
+          "answer": "Catastrophic forgetting occurs when fine-tuning causes the model to lose previously learned knowledge. It happens when the fine-tuning data is too different from the original training data or learning rate is too high.",
+          "related": ["week-5"]
+        },
+        {
+          "id": "q5-6",
+          "difficulty": "beginner",
+          "question": "What is QLoRA?",
+          "answer": "QLoRA combines quantization with LoRA. It loads the base model in 4-bit precision and applies LoRA adapters. This enables fine-tuning large models on GPUs with limited memory.",
+          "related": ["week-5"]
+        },
+        {
+          "id": "q5-7",
+          "difficulty": "intermediate",
+          "question": "What format is typically used for fine-tuning data?",
+          "answer": "The most common format is instruction-following format with system/user/assistant message roles. Each example contains an instruction, optional context, and the expected response.",
+          "related": ["week-5"]
+        },
+        {
+          "id": "q5-8",
+          "difficulty": "advanced",
+          "question": "How do you prevent overfitting during fine-tuning?",
+          "answer": "Use early stopping, monitor validation loss, use appropriate learning rates, apply dropout, limit the number of epochs, and ensure diverse training data.",
+          "related": ["week-5"]
+        },
+        {
+          "id": "q5-9",
+          "difficulty": "beginner",
+          "question": "What is a fine-tuning dataset?",
+          "answer": "A fine-tuning dataset is a collection of input-output pairs that demonstrate the desired behavior. It teaches the model how to respond to specific types of requests.",
+          "related": ["week-5"]
+        },
+        {
+          "id": "q5-10",
+          "difficulty": "advanced",
+          "question": "What are the trade-offs between fine-tuning and RAG?",
+          "answer": "Fine-tuning encodes knowledge in weights (permanent, faster inference) while RAG retrieves knowledge at runtime (easier to update, no training). Fine-tuning is better for behavior; RAG is better for knowledge.",
+          "related": ["week-5", "week-6"]
+        }
+      ],
+      "exercises": [
+        {
+          "id": "ex5-1",
+          "difficulty": "basic",
+          "title": "Prepare a Fine-tuning Dataset",
+          "description": "Create a dataset of 50 instruction-response pairs for a specific task (e.g., email classification, code review). Format it for OpenAI fine-tuning API.",
+          "expectedTime": "45 minutes"
+        },
+        {
+          "id": "ex5-2",
+          "difficulty": "intermediate",
+          "title": "Fine-tune with LoRA",
+          "description": "Use Hugging Face PEFT to fine-tune a small language model (e.g., Phi-2) on a custom dataset using LoRA. Compare performance before and after fine-tuning.",
+          "expectedTime": "120 minutes"
+        },
+        {
+          "id": "ex5-3",
+          "difficulty": "advanced",
+          "title": "Evaluate Fine-tuned Model",
+          "description": "Fine-tune a model and build an evaluation pipeline that measures accuracy, consistency, and hallucination rate on a held-out test set. Generate a comparison report.",
+          "expectedTime": "90 minutes"
+        }
+      ],
+      "challenge": {
+        "id": "ch5",
+        "title": "Build a Fine-tuning Pipeline",
+        "description": "Build an end-to-end fine-tuning pipeline that handles data preparation, training, evaluation, and deployment of a fine-tuned model.",
+        "requirements": [
+          "Data validation and preprocessing",
+          "LoRA/QLoRA fine-tuning with configurable parameters",
+          "Training monitoring with loss curves",
+          "Automated evaluation on test set",
+          "Model versioning and deployment"
+        ],
+        "expectedTime": "5 hours"
+      },
+      "miniProject": null,
+      "quiz": {
+        "id": "quiz5",
+        "questions": 10,
+        "timeLimit": "30 minutes",
+        "passingScore": 80
+      },
+      "interviewQuestions": [
+        {
+          "question": "When would you choose fine-tuning over prompt engineering?",
+          "expectedAnswer": "When prompting can't achieve the desired accuracy, when you need consistent output formats, when latency is critical, or when you need domain-specific knowledge embedded in the model.",
+          "difficulty": "intermediate"
+        },
+        {
+          "question": "Explain LoRA and its advantages.",
+          "expectedAnswer": "LoRA freezes the base model and trains low-rank adapter matrices. Advantages: fewer trainable parameters, less memory, faster training, and ability to swap adapters for different tasks.",
+          "difficulty": "intermediate"
+        },
+        {
+          "question": "How do you evaluate if fine-tuning was successful?",
+          "expectedAnswer": "Compare metrics (accuracy, loss, task-specific metrics) before and after fine-tuning on a held-out test set. Check for overfitting by monitoring train vs validation loss.",
+          "difficulty": "advanced"
+        }
+      ],
+      "completionCriteria": {
+        "required": ["ex5-1", "ex5-2", "ex5-3", "ch5", "quiz5"],
+        "minimumQuizScore": 80
+      }
+    },
+    {
+      "id": "week-6",
+      "module": "core-techniques",
+      "number": 6,
+      "title": "RAG Architecture",
+      "learningOutcomes": [
+        "Understand Retrieval-Augmented Generation principles",
+        "Design document chunking strategies",
+        "Implement vector embeddings and similarity search",
+        "Build a complete RAG pipeline",
+        "Evaluate and optimize RAG performance"
+      ],
+      "reference": {
+        "topics": [
+          {
+            "name": "RAG Fundamentals",
+            "content": "Retrieval-Augmented Generation combines LLMs with external knowledge retrieval. Instead of relying solely on the model's training data, RAG retrieves relevant documents at query time and includes them in the prompt.",
+            "keyPoints": [
+              "Reduces hallucination by grounding in real data",
+              "Enables knowledge updates without retraining",
+              "Keeps LLM responses current and accurate",
+              "Combines the best of retrieval and generation"
+            ]
+          },
+          {
+            "name": "Document Chunking",
+            "content": "Documents must be split into chunks for embedding and retrieval. Chunk size, overlap, and splitting strategy significantly impact retrieval quality.",
+            "keyPoints": [
+              "Fixed-size chunks (512-1024 tokens) are common",
+              "Semantic chunking respects document structure",
+              "Overlap prevents information loss at boundaries",
+              "Metadata (headers, sections) improves retrieval"
+            ]
+          },
+          {
+            "name": "Vector Embeddings and Search",
+            "content": "Text is converted to numerical vectors (embeddings) using embedding models. Similarity search finds the most relevant chunks using cosine similarity or dot product.",
+            "keyPoints": [
+              "Embedding models convert text to dense vectors",
+              "Cosine similarity measures semantic closeness",
+              "Vector databases enable fast similarity search",
+              "Hybrid search combines keyword and semantic search"
+            ]
+          },
+          {
+            "name": "Advanced RAG Techniques",
+            "content": "Advanced RAG improves retrieval quality through query expansion, re-ranking, hybrid search, and iterative retrieval. These techniques significantly improve answer accuracy.",
+            "keyPoints": [
+              "Query expansion: Reformulate queries for better retrieval",
+              "Re-ranking: Score retrieved chunks by relevance",
+              "Hybrid search: Combine BM25 with vector search",
+              "Iterative RAG: Retrieve, generate, retrieve again"
+            ]
+          }
+        ]
+      },
+      "questions": [
+        {
+          "id": "q6-1",
+          "difficulty": "beginner",
+          "question": "What is RAG?",
+          "answer": "Retrieval-Augmented Generation is a technique that combines LLMs with external knowledge retrieval. It retrieves relevant documents at query time and includes them as context for generating answers.",
+          "related": ["week-6"]
+        },
+        {
+          "id": "q6-2",
+          "difficulty": "beginner",
+          "question": "Why is RAG needed?",
+          "answer": "LLMs have knowledge cutoffs and can hallucinate. RAG grounds responses in real data, enables knowledge updates without retraining, and provides citations for answers.",
+          "related": ["week-6"]
+        },
+        {
+          "id": "q6-3",
+          "difficulty": "intermediate",
+          "question": "What is document chunking?",
+          "answer": "Chunking splits documents into smaller pieces for embedding and retrieval. Common strategies include fixed-size chunks, semantic splitting, and recursive splitting.",
+          "related": ["week-6"]
+        },
+        {
+          "id": "q6-4",
+          "difficulty": "intermediate",
+          "question": "How do vector embeddings work in RAG?",
+          "answer": "Embedding models convert text chunks into dense numerical vectors. Similar content produces similar vectors. Cosine similarity finds the most relevant chunks for a query.",
+          "related": ["week-6"]
+        },
+        {
+          "id": "q6-5",
+          "difficulty": "advanced",
+          "question": "What are the main failure modes of RAG?",
+          "answer": "Poor chunking, irrelevant retrieval, hallucination despite context, missing context, outdated documents, and LLM ignoring retrieved context. Each requires specific mitigation strategies.",
+          "related": ["week-6"]
+        },
+        {
+          "id": "q6-6",
+          "difficulty": "beginner",
+          "question": "What is a vector database?",
+          "answer": "A vector database stores embeddings and supports efficient similarity search. Popular options include Pinecone, Weaviate, ChromaDB, and FAISS.",
+          "related": ["week-6"]
+        },
+        {
+          "id": "q6-7",
+          "difficulty": "intermediate",
+          "question": "What is re-ranking in RAG?",
+          "answer": "Re-ranking takes initially retrieved chunks and scores them more precisely by relevance using a cross-encoder model. It improves the quality of context sent to the LLM.",
+          "related": ["week-6"]
+        },
+        {
+          "id": "q6-8",
+          "difficulty": "advanced",
+          "question": "How does hybrid search improve RAG?",
+          "answer": "Hybrid search combines keyword search (BM25) with semantic search (vector similarity). It catches both exact keyword matches and semantic relationships, improving retrieval coverage.",
+          "related": ["week-6"]
+        },
+        {
+          "id": "q6-9",
+          "difficulty": "beginner",
+          "question": "What is chunk overlap?",
+          "answer": "Chunk overlap means adjacent chunks share some tokens. It prevents information from being lost at chunk boundaries. Typical overlap is 10-20% of chunk size.",
+          "related": ["week-6"]
+        },
+        {
+          "id": "q6-10",
+          "difficulty": "advanced",
+          "question": "How do you evaluate RAG system quality?",
+          "answer": "Measure retrieval precision/recall, answer faithfulness, answer relevance, and hallucination rates. Use metrics like context precision, context recall, and answer correctness.",
+          "related": ["week-6"]
+        }
+      ],
+      "exercises": [
+        {
+          "id": "ex6-1",
+          "difficulty": "basic",
+          "title": "Build a Basic RAG Pipeline",
+          "description": "Build a simple RAG system that ingests a PDF, chunks it, creates embeddings, and answers questions. Use ChromaDB for vector storage.",
+          "expectedTime": "60 minutes"
+        },
+        {
+          "id": "ex6-2",
+          "difficulty": "intermediate",
+          "title": "Compare Chunking Strategies",
+          "description": "Implement 3 different chunking strategies (fixed-size, semantic, recursive) and compare their retrieval quality on a test dataset. Measure precision and recall.",
+          "expectedTime": "90 minutes"
+        },
+        {
+          "id": "ex6-3",
+          "difficulty": "advanced",
+          "title": "Implement Hybrid Search RAG",
+          "description": "Build a RAG system that combines BM25 keyword search with vector similarity search. Add re-ranking and compare results with pure vector search.",
+          "expectedTime": "120 minutes"
+        }
+      ],
+      "challenge": {
+        "id": "ch6",
+        "title": "Build an Enterprise RAG System",
+        "description": "Build a production-quality RAG system with document ingestion, multiple chunking strategies, hybrid search, re-ranking, and citation support.",
+        "requirements": [
+          "Support multiple document formats (PDF, MD, HTML)",
+          "Configurable chunking strategies",
+          "Hybrid search with re-ranking",
+          "Source citation in responses",
+          "Evaluation metrics dashboard"
+        ],
+        "expectedTime": "6 hours"
+      },
+      "miniProject": null,
+      "quiz": {
+        "id": "quiz6",
+        "questions": 10,
+        "timeLimit": "30 minutes",
+        "passingScore": 80
+      },
+      "interviewQuestions": [
+        {
+          "question": "Explain the RAG pipeline from document ingestion to answer generation.",
+          "expectedAnswer": "Documents are chunked, embedded, and stored in a vector database. Queries are embedded and matched against stored vectors. Top chunks are retrieved, optionally re-ranked, and passed as context to the LLM.",
+          "difficulty": "intermediate"
+        },
+        {
+          "question": "When would you choose RAG over fine-tuning?",
+          "expectedAnswer": "RAG when knowledge changes frequently, needs citations, or requires high accuracy on specific documents. Fine-tuning when behavior changes are needed or when latency is critical.",
+          "difficulty": "advanced"
+        },
+        {
+          "question": "How do you handle multi-turn conversations in RAG?",
+          "expectedAnswer": "Use conversation history to reformulate queries, combine current query with previous context for better retrieval, and maintain conversation state across RAG calls.",
+          "difficulty": "advanced"
+        }
+      ],
+      "completionCriteria": {
+        "required": ["ex6-1", "ex6-2", "ex6-3", "ch6", "quiz6"],
+        "minimumQuizScore": 80
+      }
+    },
+    {
+      "id": "week-7",
+      "module": "applied-engineering",
+      "number": 7,
+      "title": "Agents & Tools",
+      "learningOutcomes": [
+        "Understand the agent architecture pattern",
+        "Implement tool calling with LLMs",
+        "Design multi-agent systems",
+        "Build autonomous agent workflows",
+        "Handle agent errors and recovery"
+      ],
+      "reference": {
+        "topics": [
+          {
+            "name": "LLM Agents",
+            "content": "LLM agents are autonomous systems that use LLMs as a reasoning engine to plan, execute, and iterate on tasks. They combine LLM reasoning with tool use to accomplish complex goals.",
+            "keyPoints": [
+              "Agents use LLMs for planning and decision-making",
+              "They can break complex tasks into subtasks",
+              "They use tools to interact with external systems",
+              "They can observe results and adjust their approach"
+            ]
+          },
+          {
+            "name": "Tool Calling",
+            "content": "Tool calling allows LLMs to invoke external functions and APIs. The model decides which tools to use and provides parameters, then processes the tool's output.",
+            "keyPoints": [
+              "Define tools with names, descriptions, and parameters",
+              "LLM selects appropriate tools based on the task",
+              "Tool outputs are fed back to the LLM for reasoning",
+              "Supports complex multi-tool workflows"
+            ]
+          },
+          {
+            "name": "Agent Architectures",
+            "content": "Different agent architectures suit different tasks: ReAct (reasoning + acting), Plan-and-Execute, Multi-Agent systems, and hierarchical agents.",
+            "keyPoints": [
+              "ReAct: Interleaves reasoning and action steps",
+              "Plan-and-Execute: Plans first, then executes",
+              "Multi-Agent: Multiple specialized agents collaborate",
+              "Hierarchical: Manager agent delegates to workers"
+            ]
+          },
+          {
+            "name": "Error Handling in Agents",
+            "content": "Agents must handle tool failures, unexpected outputs, loops, and resource limits gracefully. Robust error handling is critical for reliable agent behavior.",
+            "keyPoints": [
+              "Implement retry logic with backoff",
+              "Set maximum iteration limits",
+              "Handle tool failures and timeouts",
+              "Log agent decisions for debugging"
+            ]
+          }
+        ]
+      },
+      "questions": [
+        {
+          "id": "q7-1",
+          "difficulty": "beginner",
+          "question": "What is an LLM agent?",
+          "answer": "An LLM agent is a system that uses an LLM as its reasoning engine to plan, decide, and execute tasks autonomously. It can use tools and observe results to achieve goals.",
+          "related": ["week-7"]
+        },
+        {
+          "id": "q7-2",
+          "difficulty": "beginner",
+          "question": "What is tool calling?",
+          "answer": "Tool calling allows LLMs to invoke external functions or APIs. The model generates structured calls with parameters, which are executed by the system and results fed back to the model.",
+          "related": ["week-7"]
+        },
+        {
+          "id": "q7-3",
+          "difficulty": "intermediate",
+          "question": "What is the ReAct pattern?",
+          "answer": "ReAct (Reasoning + Acting) is an agent pattern where the LLM alternates between thinking (reasoning about what to do) and acting (using a tool), then observing the result before the next step.",
+          "related": ["week-7"]
+        },
+        {
+          "id": "q7-4",
+          "difficulty": "intermediate",
+          "question": "How do you prevent agents from getting stuck in loops?",
+          "answer": "Set maximum iteration limits, implement loop detection by tracking repeated actions, use timeouts, and add circuit breakers that halt execution after repeated failures.",
+          "related": ["week-7"]
+        },
+        {
+          "id": "q7-5",
+          "difficulty": "advanced",
+          "question": "How do multi-agent systems work?",
+          "answer": "Multiple specialized agents collaborate on complex tasks. A coordinator agent delegates subtasks to domain-specific agents. Each agent has its own tools and expertise.",
+          "related": ["week-7"]
+        },
+        {
+          "id": "q7-6",
+          "difficulty": "beginner",
+          "question": "What is the difference between an agent and a simple LLM call?",
+          "answer": "A simple LLM call returns a response. An agent can reason, take actions, observe results, and iterate. Agents have autonomy and can use external tools.",
+          "related": ["week-7"]
+        },
+        {
+          "id": "q7-7",
+          "difficulty": "intermediate",
+          "question": "What is a tool schema?",
+          "answer": "A tool schema defines a tool's name, description, input parameters with types, and required fields. It tells the LLM when and how to use the tool.",
+          "related": ["week-7"]
+        },
+        {
+          "id": "q7-8",
+          "difficulty": "advanced",
+          "question": "What are the challenges of autonomous agents?",
+          "answer": "Challenges include safety (preventing harmful actions), reliability (handling failures), cost (multiple LLM calls), latency, and debugging complex agent workflows.",
+          "related": ["week-7"]
+        },
+        {
+          "id": "q7-9",
+          "difficulty": "beginner",
+          "question": "What is a plan-and-execute agent?",
+          "answer": "A plan-and-execute agent first creates a complete plan, then executes each step. It differs from ReAct which plans and acts one step at a time.",
+          "related": ["week-7"]
+        },
+        {
+          "id": "q7-10",
+          "difficulty": "advanced",
+          "question": "How do you test agent systems?",
+          "answer": "Unit test individual tools, integration test agent workflows with mock tools, use deterministic scenarios for end-to-end testing, and implement logging for post-hoc analysis.",
+          "related": ["week-7"]
+        }
+      ],
+      "exercises": [
+        {
+          "id": "ex7-1",
+          "difficulty": "basic",
+          "title": "Build a Simple Tool-Calling Agent",
+          "description": "Create an agent that can use a calculator tool and a web search tool. Implement the ReAct pattern with reasoning and action steps.",
+          "expectedTime": "60 minutes"
+        },
+        {
+          "id": "ex7-2",
+          "difficulty": "intermediate",
+          "title": "Build a Multi-Tool Agent",
+          "description": "Extend the agent to use at least 5 tools: calculator, web search, file read/write, code execution, and API calls. Handle tool failures gracefully.",
+          "expectedTime": "90 minutes"
+        },
+        {
+          "id": "ex7-3",
+          "difficulty": "advanced",
+          "title": "Build a Multi-Agent System",
+          "description": "Create a system with 3 specialized agents (researcher, writer, reviewer) that collaborate to produce a report. Implement agent communication and task delegation.",
+          "expectedTime": "120 minutes"
+        }
+      ],
+      "challenge": {
+        "id": "ch7",
+        "title": "Build an Autonomous Research Agent",
+        "description": "Build an agent that takes a research question, searches the web, analyzes sources, and produces a well-structured report with citations.",
+        "requirements": [
+          "Web search and content extraction tools",
+          "Source evaluation and ranking",
+          "Multi-step research planning",
+          "Report generation with citations",
+          "Error handling and retry logic"
+        ],
+        "expectedTime": "5 hours"
+      },
+      "miniProject": null,
+      "quiz": {
+        "id": "quiz7",
+        "questions": 10,
+        "timeLimit": "30 minutes",
+        "passingScore": 80
+      },
+      "interviewQuestions": [
+        {
+          "question": "Explain the ReAct pattern and when to use it.",
+          "expectedAnswer": "ReAct interleaves reasoning and action. The LLM thinks about what to do, takes an action, observes the result, and repeats. Best for tasks requiring external tool interaction and adaptive planning.",
+          "difficulty": "intermediate"
+        },
+        {
+          "question": "How do you ensure agent safety?",
+          "expectedAnswer": "Implement permission systems, sandbox tool execution, set action limits, log all actions, require human approval for high-risk actions, and test adversarial scenarios.",
+          "difficulty": "advanced"
+        },
+        {
+          "question": "When would you use multi-agent vs single-agent systems?",
+          "expectedAnswer": "Multi-agent for complex tasks requiring diverse expertise, parallel execution, or separation of concerns. Single-agent for simpler tasks where overhead isn't justified.",
+          "difficulty": "advanced"
+        }
+      ],
+      "completionCriteria": {
+        "required": ["ex7-1", "ex7-2", "ex7-3", "ch7", "quiz7"],
+        "minimumQuizScore": 80
+      }
+    },
+    {
+      "id": "week-8",
+      "module": "applied-engineering",
+      "number": 8,
+      "title": "Evaluation",
+      "learningOutcomes": [
+        "Design comprehensive evaluation frameworks",
+        "Implement automated quality metrics",
+        "Build human evaluation workflows",
+        "Use LLM-as-a-judge for evaluation",
+        "Create evaluation dashboards and reports"
+      ],
+      "reference": {
+        "topics": [
+          {
+            "name": "Evaluation Fundamentals",
+            "content": "Evaluation measures how well your LLM application performs. It covers accuracy, relevance, safety, consistency, and user satisfaction. A good evaluation framework catches regressions and guides improvements.",
+            "keyPoints": [
+              "Define clear metrics before building",
+              "Automate evaluation where possible",
+              "Combine quantitative and qualitative metrics",
+              "Track evaluation over time"
+            ]
+          },
+          {
+            "name": "Automated Metrics",
+            "content": "Automated metrics include exact match, BLEU, ROUGE, faithfulness scores, and task-specific metrics. They enable fast, repeatable evaluation at scale.",
+            "keyPoints": [
+              "Exact match for factual questions",
+              "ROUGE for summarization quality",
+              "Faithfulness scores for RAG systems",
+              "Custom metrics for specific tasks"
+            ]
+          },
+          {
+            "name": "LLM-as-a-Judge",
+            "content": "Using an LLM to evaluate outputs of another LLM. Cost-effective and scalable, but requires careful prompt design and calibration against human judgments.",
+            "keyPoints": [
+              "Design clear evaluation criteria",
+              "Use structured scoring rubrics",
+              "Calibrate against human judgments",
+              "Watch for LLM biases in evaluation"
+            ]
+          },
+          {
+            "name": "Human Evaluation",
+            "content": "Human evaluation provides ground truth for quality. It's essential for subjective tasks and for calibrating automated metrics. Design clear evaluation guidelines and inter-annotator agreement.",
+            "keyPoints": [
+              "Define clear evaluation rubrics",
+              "Train evaluators on criteria",
+              "Measure inter-annotator agreement",
+              "Use human eval to validate automated metrics"
+            ]
+          }
+        ]
+      },
+      "questions": [
+        {
+          "id": "q8-1",
+          "difficulty": "beginner",
+          "question": "Why is evaluation important in LLM engineering?",
+          "answer": "Evaluation measures quality, catches regressions, guides improvements, and builds confidence in your system. Without it, you're deploying untested systems.",
+          "related": ["week-8"]
+        },
+        {
+          "id": "q8-2",
+          "difficulty": "beginner",
+          "question": "What is ROUGE score?",
+          "answer": "ROUGE measures the overlap between generated text and reference text. ROUGE-1 measures unigram overlap, ROUGE-2 measures bigram overlap, and ROUGE-L measures longest common subsequence.",
+          "related": ["week-8"]
+        },
+        {
+          "id": "q8-3",
+          "difficulty": "intermediate",
+          "question": "What is LLM-as-a-judge?",
+          "answer": "Using a powerful LLM to evaluate the outputs of your system. It's cost-effective and scalable but requires careful prompt design and calibration against human judgments.",
+          "related": ["week-8"]
+        },
+        {
+          "id": "q8-4",
+          "difficulty": "intermediate",
+          "question": "How do you evaluate a RAG system?",
+          "answer": "Measure retrieval quality (precision, recall), answer faithfulness (is it grounded in context?), answer relevance (does it answer the question?), and hallucination rate.",
+          "related": ["week-8", "week-6"]
+        },
+        {
+          "id": "q8-5",
+          "difficulty": "advanced",
+          "question": "What are the biases in LLM-as-a-judge?",
+          "answer": "Position bias (preferring earlier options), verbosity bias (longer = better), self-preference bias (preferring own outputs), and cultural biases in evaluation criteria.",
+          "related": ["week-8"]
+        },
+        {
+          "id": "q8-6",
+          "difficulty": "beginner",
+          "question": "What is a test set?",
+          "answer": "A test set is a collection of inputs and expected outputs used to evaluate your system. It should be representative of real-world usage and kept separate from training data.",
+          "related": ["week-8"]
+        },
+        {
+          "id": "q8-7",
+          "difficulty": "intermediate",
+          "question": "What is faithfulness in RAG evaluation?",
+          "answer": "Faithfulness measures whether the generated answer is supported by the retrieved context. A faithful answer doesn't hallucinate information not present in the source documents.",
+          "related": ["week-8"]
+        },
+        {
+          "id": "q8-8",
+          "difficulty": "advanced",
+          "question": "How do you evaluate safety and toxicity?",
+          "answer": "Use toxicity classifiers, red-team testing with adversarial prompts, bias benchmarks, and manual review of edge cases. Monitor production outputs for safety issues.",
+          "related": ["week-8", "week-10"]
+        },
+        {
+          "id": "q8-9",
+          "difficulty": "beginner",
+          "question": "What is inter-annotator agreement?",
+          "answer": "The degree to which different human evaluators agree on quality ratings. High agreement indicates clear evaluation criteria. Measured using Cohen's kappa or Fleiss' kappa.",
+          "related": ["week-8"]
+        },
+        {
+          "id": "q8-10",
+          "difficulty": "advanced",
+          "question": "How do you build a regression test suite for LLMs?",
+          "answer": "Collect diverse test cases covering edge cases, track known failures, version test sets, run automated evaluation on each model change, and alert on quality degradation.",
+          "related": ["week-8"]
+        }
+      ],
+      "exercises": [
+        {
+          "id": "ex8-1",
+          "difficulty": "basic",
+          "title": "Build an Evaluation Dataset",
+          "description": "Create an evaluation dataset of 100 input-output pairs for a specific task. Include edge cases, ambiguous inputs, and diverse scenarios.",
+          "expectedTime": "45 minutes"
+        },
+        {
+          "id": "ex8-2",
+          "difficulty": "intermediate",
+          "title": "Implement LLM-as-a-Judge",
+          "description": "Build an automated evaluation system using an LLM to judge output quality. Include scoring rubrics, calibration against human judgments, and bias detection.",
+          "expectedTime": "90 minutes"
+        },
+        {
+          "id": "ex8-3",
+          "difficulty": "advanced",
+          "title": "Build an Evaluation Dashboard",
+          "description": "Create a dashboard that tracks evaluation metrics over time, shows quality trends, highlights regressions, and generates evaluation reports.",
+          "expectedTime": "120 minutes"
+        }
+      ],
+      "challenge": {
+        "id": "ch8",
+        "title": "Build an Evaluation Framework",
+        "description": "Build a comprehensive evaluation framework that supports automated metrics, human evaluation, and LLM-as-a-judge for any LLM application.",
+        "requirements": [
+          "Pluggable metric system",
+          "Automated evaluation pipeline",
+          "Human evaluation interface",
+          "LLM-as-a-judge with calibration",
+          "Reporting and visualization"
+        ],
+        "expectedTime": "5 hours"
+      },
+      "miniProject": null,
+      "quiz": {
+        "id": "quiz8",
+        "questions": 10,
+        "timeLimit": "30 minutes",
+        "passingScore": 80
+      },
+      "interviewQuestions": [
+        {
+          "question": "How do you evaluate an LLM application that has no ground truth labels?",
+          "expectedAnswer": "Use LLM-as-a-judge, human evaluation, proxy metrics (consistency, relevance scores), A/B testing with users, and task-specific heuristic metrics.",
+          "difficulty": "advanced"
+        },
+        {
+          "question": "What metrics matter most for a chatbot?",
+          "expectedAnswer": "Response quality, relevance, safety, consistency, latency, user satisfaction, task completion rate, and conversation coherence.",
+          "difficulty": "intermediate"
+        },
+        {
+          "question": "How do you handle evaluation at scale?",
+          "expectedAnswer": "Automate with LLM-as-a-judge, sample from production traffic, use statistical significance testing, and build evaluation pipelines that run on every deployment.",
+          "difficulty": "advanced"
+        }
+      ],
+      "completionCriteria": {
+        "required": ["ex8-1", "ex8-2", "ex8-3", "ch8", "quiz8"],
+        "minimumQuizScore": 80
+      }
+    },
+    {
+      "id": "week-9",
+      "module": "applied-engineering",
+      "number": 9,
+      "title": "Deployment",
+      "learningOutcomes": [
+        "Design LLM application architecture",
+        "Implement caching and rate limiting",
+        "Optimize for latency and cost",
+        "Build monitoring and observability",
+        "Handle production failures gracefully"
+      ],
+      "reference": {
+        "topics": [
+          {
+            "name": "LLM Application Architecture",
+            "content": "Production LLM applications need proper architecture including API design, middleware, caching, rate limiting, and fallback strategies. Design for scalability and reliability from the start.",
+            "keyPoints": [
+              "Separate concerns: API, business logic, LLM calls",
+              "Implement proper error handling and retries",
+              "Use async processing for long-running tasks",
+              "Design for horizontal scaling"
+            ]
+          },
+          {
+            "name": "Caching Strategies",
+            "content": "Caching LLM responses dramatically reduces costs and latency. Implement semantic caching for similar queries and exact caching for identical requests.",
+            "keyPoints": [
+              "Exact match caching for identical prompts",
+              "Semantic caching with embedding similarity",
+              "Cache invalidation strategies",
+              "Cache warming for common queries"
+            ]
+          },
+          {
+            "name": "Cost and Latency Optimization",
+            "content": "Optimize costs through model selection, prompt optimization, response streaming, batching, and token efficiency. Balance quality requirements with budget constraints.",
+            "keyPoints": [
+              "Choose appropriate model for each task",
+              "Stream responses for better UX",
+              "Batch similar requests when possible",
+              "Monitor and alert on cost anomalies"
+            ]
+          },
+          {
+            "name": "Monitoring and Observability",
+            "content": "Monitor LLM applications for quality, performance, costs, and safety. Implement logging, tracing, alerting, and dashboards.",
+            "keyPoints": [
+              "Log all LLM interactions",
+              "Track latency, cost, and quality metrics",
+              "Implement distributed tracing",
+              "Set up alerts for anomalies"
+            ]
+          }
+        ]
+      },
+      "questions": [
+        {
+          "id": "q9-1",
+          "difficulty": "beginner",
+          "question": "What are the key considerations for deploying LLM applications?",
+          "answer": "Key considerations include latency, cost, reliability, security, monitoring, scaling, and user experience. Each requires specific architectural decisions.",
+          "related": ["week-9"]
+        },
+        {
+          "id": "q9-2",
+          "difficulty": "beginner",
+          "question": "What is response streaming?",
+          "answer": "Streaming sends tokens to the user as they're generated rather than waiting for the complete response. It improves perceived latency and user experience.",
+          "related": ["week-9"]
+        },
+        {
+          "id": "q9-3",
+          "difficulty": "intermediate",
+          "question": "How does semantic caching work?",
+          "answer": "Semantic caching stores responses indexed by query embeddings. When a new query comes in, it's checked against cached embeddings. If a similar cached response exists, it's returned without an LLM call.",
+          "related": ["week-9"]
+        },
+        {
+          "id": "q9-4",
+          "difficulty": "intermediate",
+          "question": "What is rate limiting and why is it needed?",
+          "answer": "Rate limiting restricts the number of requests per user/time period. It prevents abuse, controls costs, ensures fair usage, and protects against denial of service attacks.",
+          "related": ["week-9"]
+        },
+        {
+          "id": "q9-5",
+          "difficulty": "advanced",
+          "question": "How do you implement fallback strategies for LLM calls?",
+          "answer": "Implement retry with exponential backoff, fall back to smaller models on failure, use cached responses as fallback, implement graceful degradation, and provide meaningful error messages.",
+          "related": ["week-9"]
+        },
+        {
+          "id": "q9-6",
+          "difficulty": "beginner",
+          "question": "What is the role of a load balancer in LLM deployment?",
+          "answer": "A load balancer distributes incoming requests across multiple LLM service instances. It ensures high availability, prevents overload on single instances, and enables scaling.",
+          "related": ["week-9"]
+        },
+        {
+          "id": "q9-7",
+          "difficulty": "intermediate",
+          "question": "How do you monitor LLM quality in production?",
+          "answer": "Log inputs/outputs, track quality metrics over time, implement sampling for human review, use automated quality checks, and set up alerts for quality degradation.",
+          "related": ["week-9"]
+        },
+        {
+          "id": "q9-8",
+          "difficulty": "advanced",
+          "question": "How do you optimize LLM costs in production?",
+          "answer": "Use model routing (small models for simple tasks), prompt optimization to reduce tokens, semantic caching, batch processing, and continuous monitoring of cost per request.",
+          "related": ["week-9"]
+        },
+        {
+          "id": "q9-9",
+          "difficulty": "beginner",
+          "question": "What is a model endpoint?",
+          "answer": "A model endpoint is a URL that serves a deployed LLM model. It accepts requests and returns predictions. Managed services provide endpoints automatically.",
+          "related": ["week-9"]
+        },
+        {
+          "id": "q9-10",
+          "difficulty": "advanced",
+          "question": "How do you handle LLM deployment at scale?",
+          "answer": "Use auto-scaling, implement queuing for async requests, cache aggressively, distribute load across providers, implement circuit breakers, and optimize token usage.",
+          "related": ["week-9"]
+        }
+      ],
+      "exercises": [
+        {
+          "id": "ex9-1",
+          "difficulty": "basic",
+          "title": "Build a Simple LLM API",
+          "description": "Create a FastAPI service that wraps an LLM API call with proper error handling, rate limiting, and logging. Include health checks and documentation.",
+          "expectedTime": "60 minutes"
+        },
+        {
+          "id": "ex9-2",
+          "difficulty": "intermediate",
+          "title": "Implement Caching Layer",
+          "description": "Add semantic caching to the LLM API using Redis and embeddings. Measure cache hit rates and cost savings on a test dataset.",
+          "expectedTime": "90 minutes"
+        },
+        {
+          "id": "ex9-3",
+          "difficulty": "advanced",
+          "title": "Build a Monitoring Dashboard",
+          "description": "Create a dashboard that shows real-time metrics: request count, latency, costs, error rates, cache hit rates, and quality scores. Include alerting for anomalies.",
+          "expectedTime": "120 minutes"
+        }
+      ],
+      "challenge": {
+        "id": "ch9",
+        "title": "Build a Production LLM Service",
+        "description": "Build a production-ready LLM service with API, caching, rate limiting, monitoring, fallbacks, and auto-scaling. Deploy it on a cloud platform.",
+        "requirements": [
+          "RESTful API with authentication",
+          "Semantic caching with Redis",
+          "Rate limiting and quotas",
+          "Comprehensive monitoring",
+          "CI/CD pipeline for deployment"
+        ],
+        "expectedTime": "6 hours"
+      },
+      "miniProject": null,
+      "quiz": {
+        "id": "quiz9",
+        "questions": 10,
+        "timeLimit": "30 minutes",
+        "passingScore": 80
+      },
+      "interviewQuestions": [
+        {
+          "question": "How would you design a production LLM service?",
+          "expectedAnswer": "Layered architecture with API gateway, business logic, LLM abstraction layer, caching, monitoring. Include error handling, fallbacks, rate limiting, and observability.",
+          "difficulty": "advanced"
+        },
+        {
+          "question": "How do you reduce LLM API costs?",
+          "expectedAnswer": "Implement caching, optimize prompts for token efficiency, use model routing, batch requests, stream responses, and monitor cost per request.",
+          "difficulty": "intermediate"
+        },
+        {
+          "question": "What metrics should you monitor in production?",
+          "expectedAnswer": "Latency, throughput, error rates, cost per request, token usage, cache hit rates, quality scores, and user satisfaction metrics.",
+          "difficulty": "intermediate"
+        }
+      ],
+      "completionCriteria": {
+        "required": ["ex9-1", "ex9-2", "ex9-3", "ch9", "quiz9"],
+        "minimumQuizScore": 80
+      }
+    },
+    {
+      "id": "week-10",
+      "module": "production",
+      "number": 10,
+      "title": "Safety & Alignment",
+      "learningOutcomes": [
+        "Identify common LLM safety risks",
+        "Implement content filtering and moderation",
+        "Design guardrails for LLM applications",
+        "Test for adversarial attacks and vulnerabilities",
+        "Apply responsible AI principles"
+      ],
+      "reference": {
+        "topics": [
+          {
+            "name": "LLM Safety Risks",
+            "content": "LLMs can produce harmful, biased, false, or manipulative content. Understanding these risks is essential for building responsible AI systems that protect users.",
+            "keyPoints": [
+              "Hallucination: Generating false information",
+              "Bias: Reflecting biases in training data",
+              "Harmful content: Generating dangerous instructions",
+              "Data leakage: Revealing sensitive training data"
+            ]
+          },
+          {
+            "name": "Content Filtering",
+            "content": "Content filters prevent harmful inputs from reaching the model and harmful outputs from reaching users. Implement multi-layer filtering for both input and output.",
+            "keyPoints": [
+              "Input filtering: Block malicious prompts",
+              "Output filtering: Filter harmful responses",
+              "Use both keyword and classifier-based filtering",
+              "Update filters as new risks emerge"
+            ]
+          },
+          {
+            "name": "Guardrails",
+            "content": "Guardrails are constraints and checks that ensure LLM outputs meet safety, quality, and compliance requirements. They act as a safety net around the model.",
+            "keyPoints": [
+              "Output validation against safety criteria",
+              "Topic restrictions and allowed domains",
+              "Output format enforcement",
+              "Real-time monitoring and alerting"
+            ]
+          },
+          {
+            "name": "Adversarial Testing",
+            "content": "Red-teaming tests your system against adversarial attacks including prompt injection, jailbreaking, and data extraction. Regular testing is essential for safety.",
+            "keyPoints": [
+              "Prompt injection: Manipulating model behavior",
+              "Jailbreaking: Bypassing safety measures",
+              "Data extraction: Leaking training data",
+              "Regular red-team exercises"
+            ]
+          }
+        ]
+      },
+      "questions": [
+        {
+          "id": "q10-1",
+          "difficulty": "beginner",
+          "question": "What are the main safety risks with LLMs?",
+          "answer": "Key risks include hallucination, bias, harmful content generation, data leakage, prompt injection, and misuse for malicious purposes.",
+          "related": ["week-10"]
+        },
+        {
+          "id": "q10-2",
+          "difficulty": "beginner",
+          "question": "What is prompt injection?",
+          "answer": "Prompt injection is an attack where malicious input tricks the LLM into ignoring instructions, revealing sensitive information, or performing unintended actions.",
+          "related": ["week-10"]
+        },
+        {
+          "id": "q10-3",
+          "difficulty": "intermediate",
+          "question": "What is jailbreaking?",
+          "answer": "Jailbreaking is a technique to bypass an LLM's safety measures through clever prompts, making it generate content it was designed to refuse.",
+          "related": ["week-10"]
+        },
+        {
+          "id": "q10-4",
+          "difficulty": "intermediate",
+          "question": "How do you implement content filtering?",
+          "answer": "Use multi-layer filtering: input validation, keyword blocking, classifier-based detection, output scanning, and human review for edge cases. Update filters regularly.",
+          "related": ["week-10"]
+        },
+        {
+          "id": "q10-5",
+          "difficulty": "advanced",
+          "question": "What are guardrails in LLM systems?",
+          "answer": "Guardrails are constraints that ensure LLM outputs meet safety, quality, and compliance requirements. They include output validation, topic restrictions, and real-time monitoring.",
+          "related": ["week-10"]
+        },
+        {
+          "id": "q10-6",
+          "difficulty": "beginner",
+          "question": "What is hallucination in LLMs?",
+          "answer": "Hallucination is when an LLM generates information that sounds plausible but is factually incorrect or not grounded in reality. It's one of the biggest challenges in LLM deployment.",
+          "related": ["week-10"]
+        },
+        {
+          "id": "q10-7",
+          "difficulty": "intermediate",
+          "question": "What is red-teaming?",
+          "answer": "Red-teaming is the practice of deliberately testing your LLM system with adversarial inputs to find vulnerabilities, biases, and safety issues before they reach users.",
+          "related": ["week-10"]
+        },
+        {
+          "id": "q10-8",
+          "difficulty": "advanced",
+          "question": "How do you detect and prevent data leakage?",
+          "answer": "Implement input/output filtering, restrict what the model can reveal, use differential privacy in training, and regularly test with prompts designed to extract sensitive information.",
+          "related": ["week-10"]
+        },
+        {
+          "id": "q10-9",
+          "difficulty": "beginner",
+          "question": "What is responsible AI?",
+          "answer": "Responsible AI means building AI systems that are safe, fair, transparent, and accountable. It involves considering ethical implications throughout the development lifecycle.",
+          "related": ["week-10"]
+        },
+        {
+          "id": "q10-10",
+          "difficulty": "advanced",
+          "question": "How do you handle bias in LLM outputs?",
+          "answer": "Use diverse training data, implement bias detection in outputs, test across demographics, provide fair responses, and continuously monitor for biased patterns in production.",
+          "related": ["week-10"]
+        }
+      ],
+      "exercises": [
+        {
+          "id": "ex10-1",
+          "difficulty": "basic",
+          "title": "Build a Content Filter",
+          "description": "Implement a content filtering system that detects and blocks harmful inputs and outputs. Include toxicity detection and topic filtering.",
+          "expectedTime": "60 minutes"
+        },
+        {
+          "id": "ex10-2",
+          "difficulty": "intermediate",
+          "title": "Red-Team an LLM System",
+          "description": "Systematically test an LLM application with adversarial prompts. Document vulnerabilities found and implement mitigations.",
+          "expectedTime": "90 minutes"
+        },
+        {
+          "id": "ex10-3",
+          "difficulty": "advanced",
+          "title": "Build a Guardrails System",
+          "description": "Create a guardrails framework that validates LLM outputs against safety criteria, enforces output formats, and provides configurable safety policies.",
+          "expectedTime": "120 minutes"
+        }
+      ],
+      "challenge": {
+        "id": "ch10",
+        "title": "Build a Safe LLM Application",
+        "description": "Take a previously built LLM application and add comprehensive safety measures: content filtering, guardrails, adversarial testing, and monitoring.",
+        "requirements": [
+          "Input and output content filtering",
+          "Guardrails for output validation",
+          "Adversarial test suite with 50+ attack prompts",
+          "Safety monitoring dashboard",
+          "Incident response procedures"
+        ],
+        "expectedTime": "5 hours"
+      },
+      "miniProject": null,
+      "quiz": {
+        "id": "quiz10",
+        "questions": 10,
+        "timeLimit": "30 minutes",
+        "passingScore": 80
+      },
+      "interviewQuestions": [
+        {
+          "question": "How would you protect an LLM application from prompt injection?",
+          "expectedAnswer": "Separate user input from instructions, validate/sanitize inputs, use output filtering, implement guardrails, test adversarially, and limit model permissions.",
+          "difficulty": "advanced"
+        },
+        {
+          "question": "What is the role of red-teaming in LLM safety?",
+          "expectedAnswer": "Red-teaming proactively finds vulnerabilities through adversarial testing. It helps identify safety issues before deployment, guiding mitigation strategies.",
+          "difficulty": "intermediate"
+        },
+        {
+          "question": "How do you balance safety with functionality?",
+          "expectedAnswer": "Implement safety measures proportionate to risk. Use layered defenses, allow users to adjust safety levels appropriately, and monitor for false positives.",
+          "difficulty": "advanced"
+        }
+      ],
+      "completionCriteria": {
+        "required": ["ex10-1", "ex10-2", "ex10-3", "ch10", "quiz10"],
+        "minimumQuizScore": 80
+      }
+    },
+    {
+      "id": "week-11",
+      "module": "production",
+      "number": 11,
+      "title": "Advanced Topics",
+      "learningOutcomes": [
+        "Understand model distillation and compression",
+        "Implement function calling patterns",
+        "Design multi-modal LLM systems",
+        "Explore local and on-device LLM deployment",
+        "Apply advanced optimization techniques"
+      ],
+      "reference": {
+        "topics": [
+          {
+            "name": "Model Distillation",
+            "content": "Model distillation trains smaller models to mimic larger ones. Knowledge transfer from teacher to student models enables deployment on resource-constrained environments while preserving performance.",
+            "keyPoints": [
+              "Teacher model guides student training",
+              "Smaller models achieve similar performance",
+              "Reduces inference cost and latency",
+              "Enables on-device deployment"
+            ]
+          },
+          {
+            "name": "Function Calling Patterns",
+            "content": "Advanced function calling enables LLMs to interact with complex APIs and systems. Design patterns include chained calls, parallel execution, and conditional tool use.",
+            "keyPoints": [
+              "Schema-driven function definition",
+              "Parallel and sequential tool calls",
+              "Error handling and retry logic",
+              "Conditional tool selection based on context"
+            ]
+          },
+          {
+            "name": "Multi-Modal LLMs",
+            "content": "Multi-modal LLMs process text, images, audio, and video. They enable richer interactions and more capable AI applications across different media types.",
+            "keyPoints": [
+              "Vision-language models (GPT-4V, Claude Vision)",
+              "Audio processing with Whisper",
+              "Video understanding capabilities",
+              "Cross-modal reasoning and generation"
+            ]
+          },
+          {
+            "name": "Local and Edge Deployment",
+            "content": "Deploying LLMs locally or on edge devices reduces latency, improves privacy, and eliminates API costs. Quantization and optimization make this feasible on consumer hardware.",
+            "keyPoints": [
+              "GGUF format for local deployment",
+              "4-bit and 8-bit quantization",
+              "Model size vs quality trade-offs",
+              "Hardware requirements and optimization"
+            ]
+          }
+        ]
+      },
+      "questions": [
+        {
+          "id": "q11-1",
+          "difficulty": "beginner",
+          "question": "What is model distillation?",
+          "answer": "Model distillation is training a smaller model to mimic a larger teacher model's behavior. It transfers knowledge while reducing model size and inference cost.",
+          "related": ["week-11"]
+        },
+        {
+          "id": "q11-2",
+          "difficulty": "beginner",
+          "question": "What is quantization?",
+          "answer": "Quantization reduces model weight precision (e.g., from 32-bit to 4-bit). It dramatically reduces model size and memory requirements with minimal quality loss.",
+          "related": ["week-11"]
+        },
+        {
+          "id": "q11-3",
+          "difficulty": "intermediate",
+          "question": "What are multi-modal LLMs?",
+          "answer": "Multi-modal LLMs can process and generate across different modalities: text, images, audio, and video. They enable richer AI applications.",
+          "related": ["week-11"]
+        },
+        {
+          "id": "q11-4",
+          "difficulty": "intermediate",
+          "question": "How does function calling work in modern LLMs?",
+          "answer": "LLMs generate structured JSON function calls based on conversation context. The system executes the function and returns results. The LLM then incorporates the results into its response.",
+          "related": ["week-11", "week-7"]
+        },
+        {
+          "id": "q11-5",
+          "difficulty": "advanced",
+          "question": "What are the trade-offs of local LLM deployment?",
+          "answer": "Advantages: privacy, latency, no API costs. Disadvantages: limited model quality, hardware requirements, maintenance burden, and no automatic updates.",
+          "related": ["week-11"]
+        },
+        {
+          "id": "q11-6",
+          "difficulty": "beginner",
+          "question": "What is GGUF format?",
+          "answer": "GGUF (GPT-Generated Unified Format) is a file format for efficient LLM storage and inference. It supports quantization and is optimized for CPU inference.",
+          "related": ["week-11"]
+        },
+        {
+          "id": "q11-7",
+          "difficulty": "intermediate",
+          "question": "What is knowledge distillation vs fine-tuning?",
+          "answer": "Knowledge distillation transfers knowledge from a large teacher to a small student model. Fine-tuning adapts a pre-trained model to a specific task using labeled data.",
+          "related": ["week-11", "week-5"]
+        },
+        {
+          "id": "q11-8",
+          "difficulty": "advanced",
+          "question": "How do you optimize LLM inference at scale?",
+          "answer": "Use quantization, batching, KV-cache optimization, speculative decoding, model parallelism, and hardware-specific optimizations (TensorRT, ONNX).",
+          "related": ["week-11"]
+        },
+        {
+          "id": "q11-9",
+          "difficulty": "beginner",
+          "question": "What is a vision-language model?",
+          "answer": "A vision-language model can understand both images and text. It can answer questions about images, generate image descriptions, and perform visual reasoning.",
+          "related": ["week-11"]
+        },
+        {
+          "id": "q11-10",
+          "difficulty": "advanced",
+          "question": "What is speculative decoding?",
+          "answer": "Speculative decoding uses a small, fast model to generate draft tokens, then a large model verifies them in parallel. It achieves speedups without quality loss.",
+          "related": ["week-11"]
+        }
+      ],
+      "exercises": [
+        {
+          "id": "ex11-1",
+          "difficulty": "basic",
+          "title": "Run a Local LLM",
+          "description": "Set up and run a quantized LLM locally using llama.cpp or Ollama. Test it with various prompts and measure performance metrics.",
+          "expectedTime": "45 minutes"
+        },
+        {
+          "id": "ex11-2",
+          "difficulty": "intermediate",
+          "title": "Build a Multi-Modal Application",
+          "description": "Create an application that processes both text and images. Build an image description system that answers questions about uploaded images.",
+          "expectedTime": "90 minutes"
+        },
+        {
+          "id": "ex11-3",
+          "difficulty": "advanced",
+          "title": "Implement Model Distillation",
+          "description": "Distill knowledge from a larger model into a smaller one for a specific task. Compare performance, latency, and cost before and after distillation.",
+          "expectedTime": "120 minutes"
+        }
+      ],
+      "challenge": {
+        "id": "ch11",
+        "title": "Build a Hybrid LLM System",
+        "description": "Build a system that intelligently routes between local and cloud LLMs based on task complexity, privacy requirements, and latency constraints.",
+        "requirements": [
+          "Task complexity classification",
+          "Dynamic model routing",
+          "Local LLM integration with Ollama",
+          "Cloud LLM API integration",
+          "Performance comparison dashboard"
+        ],
+        "expectedTime": "5 hours"
+      },
+      "miniProject": null,
+      "quiz": {
+        "id": "quiz11",
+        "questions": 10,
+        "timeLimit": "30 minutes",
+        "passingScore": 80
+      },
+      "interviewQuestions": [
+        {
+          "question": "When would you choose local deployment over cloud APIs?",
+          "expectedAnswer": "For privacy-sensitive data, low-latency requirements, high-volume processing, offline capability, or when API costs exceed hardware investment.",
+          "difficulty": "intermediate"
+        },
+        {
+          "question": "Explain quantization and its impact on model quality.",
+          "expectedAnswer": "Quantization reduces weight precision. 4-bit quantization reduces model size by 8x with minimal quality loss. Lower precision may affect complex reasoning tasks.",
+          "difficulty": "intermediate"
+        },
+        {
+          "question": "How do multi-modal models work architecturally?",
+          "expectedAnswer": "They use encoders for each modality, align representations in a shared space, and use the LLM for reasoning across modalities. Vision encoders process images into tokens the LLM can understand.",
+          "difficulty": "advanced"
+        }
+      ],
+      "completionCriteria": {
+        "required": ["ex11-1", "ex11-2", "ex11-3", "ch11", "quiz11"],
+        "minimumQuizScore": 80
+      }
+    },
+    {
+      "id": "week-12",
+      "module": "production",
+      "number": 12,
+      "title": "Capstone Project",
+      "learningOutcomes": [
+        "Design a complete LLM application from scratch",
+        "Implement all components: RAG, agents, evaluation",
+        "Deploy a production-ready system",
+        "Present and defend technical decisions",
+        "Apply all course knowledge to a real problem"
+      ],
+      "reference": {
+        "topics": [
+          {
+            "name": "Project Planning",
+            "content": "Effective project planning defines scope, architecture, and milestones. Start with clear requirements, design the system architecture, and plan iterations.",
+            "keyPoints": [
+              "Define clear problem statement and success criteria",
+              "Design system architecture before coding",
+              "Plan sprints with deliverable milestones",
+              "Document design decisions and trade-offs"
+            ]
+          },
+          {
+            "name": "System Architecture Design",
+            "content": "Design a complete system with proper separation of concerns. Include data pipeline, LLM integration, evaluation, safety, and monitoring layers.",
+            "keyPoints": [
+              "Modular architecture with clear interfaces",
+              "Data flow documentation",
+              "API design and versioning",
+              "Scalability and reliability considerations"
+            ]
+          },
+          {
+            "name": "Implementation Best Practices",
+            "content": "Follow engineering best practices: version control, testing, code review, documentation, and CI/CD. Build incrementally with working versions at each stage.",
+            "keyPoints": [
+              "Start with a minimum viable product",
+              "Write tests alongside implementation",
+              "Use meaningful commit messages",
+              "Document setup and deployment"
+            ]
+          },
+          {
+            "name": "Presentation and Communication",
+            "content": "Communicate technical decisions clearly. Explain trade-offs, demonstrate working systems, and handle questions about architecture choices.",
+            "keyPoints": [
+              "Tell a clear story about the project",
+              "Demonstrate working functionality",
+              "Explain technical trade-offs",
+              "Discuss what you would do differently"
+            ]
+          }
+        ]
+      },
+      "questions": [
+        {
+          "id": "q12-1",
+          "difficulty": "beginner",
+          "question": "How do you choose a capstone project?",
+          "answer": "Choose a project that addresses a real problem, uses multiple course concepts, is achievable in the timeframe, and interests you personally. Start with the problem, not the technology.",
+          "related": ["week-12"]
+        },
+        {
+          "id": "q12-2",
+          "difficulty": "beginner",
+          "question": "What makes a good capstone project?",
+          "answer": "It solves a real problem, demonstrates technical breadth, shows depth in key areas, includes proper evaluation, and is well-documented with clear presentation.",
+          "related": ["week-12"]
+        },
+        {
+          "id": "q12-3",
+          "difficulty": "intermediate",
+          "question": "How do you plan a 2-week capstone project?",
+          "answer": "Day 1-2: Requirements and architecture. Day 3-7: Core implementation. Day 8-10: Testing and evaluation. Day 11-12: Polish and documentation. Day 13-14: Presentation prep.",
+          "related": ["week-12"]
+        },
+        {
+          "id": "q12-4",
+          "difficulty": "intermediate",
+          "question": "What components should a capstone project include?",
+          "answer": "Clear problem statement, system architecture, working implementation with RAG/agents, evaluation framework, safety measures, deployment, and documentation.",
+          "related": ["week-12"]
+        },
+        {
+          "id": "q12-5",
+          "difficulty": "advanced",
+          "question": "How do you handle scope creep in capstone projects?",
+          "answer": "Define MVP first, prioritize features by impact, use time-boxing, cut features rather than quality, and communicate trade-offs clearly.",
+          "related": ["week-12"]
+        },
+        {
+          "id": "q12-6",
+          "difficulty": "beginner",
+          "question": "How should you present a capstone project?",
+          "answer": "Start with the problem, show the solution, demo the working system, discuss technical decisions and trade-offs, and share what you learned.",
+          "related": ["week-12"]
+        },
+        {
+          "id": "q12-7",
+          "difficulty": "intermediate",
+          "question": "What technical decisions should you document?",
+          "answer": "Model selection, RAG architecture choices, evaluation approach, safety measures, deployment strategy, and why you chose each over alternatives.",
+          "related": ["week-12"]
+        },
+        {
+          "id": "q12-8",
+          "difficulty": "advanced",
+          "question": "How do you evaluate a capstone project objectively?",
+          "answer": "Define metrics before starting, measure against requirements, test edge cases, compare with baseline approaches, and document limitations honestly.",
+          "related": ["week-12"]
+        },
+        {
+          "id": "q12-9",
+          "difficulty": "beginner",
+          "question": "What tools should you use for a capstone project?",
+          "answer": "Python, FastAPI, a vector database, an LLM API, Git for version control, and a deployment platform. Choose tools you're comfortable with.",
+          "related": ["week-12"]
+        },
+        {
+          "id": "q12-10",
+          "difficulty": "advanced",
+          "question": "What are common capstone project pitfalls?",
+          "answer": "Over-scoping, poor architecture decisions, insufficient testing, lack of evaluation, weak documentation, and last-minute integration issues.",
+          "related": ["week-12"]
+        }
+      ],
+      "exercises": [
+        {
+          "id": "ex12-1",
+          "difficulty": "basic",
+          "title": "Project Proposal",
+          "description": "Write a project proposal including: problem statement, target users, success criteria, high-level architecture, tech stack, and timeline.",
+          "expectedTime": "60 minutes"
+        },
+        {
+          "id": "ex12-2",
+          "difficulty": "intermediate",
+          "title": "Architecture Review",
+          "description": "Present your architecture design for peer review. Get feedback on scalability, security, and technical decisions. Revise based on feedback.",
+          "expectedTime": "45 minutes"
+        },
+        {
+          "id": "ex12-3",
+          "difficulty": "advanced",
+          "title": "Final Presentation",
+          "description": "Prepare and deliver a 15-minute presentation of your capstone project. Include live demo, technical deep-dive, and lessons learned.",
+          "expectedTime": "120 minutes"
+        }
+      ],
+      "challenge": {
+        "id": "ch12",
+        "title": "Capstone: Full-Stack LLM Application",
+        "description": "Build, deploy, and present a complete LLM application that demonstrates mastery of all course topics.",
+        "requirements": [
+          "Clear problem statement and target audience",
+          "RAG or Agent architecture",
+          "Evaluation framework with metrics",
+          "Safety measures and guardrails",
+          "Deployed and accessible application",
+          "Comprehensive documentation",
+          "15-minute presentation with demo"
+        ],
+        "expectedTime": "20 hours"
+      },
+      "miniProject": null,
+      "quiz": {
+        "id": "quiz12",
+        "questions": 10,
+        "timeLimit": "30 minutes",
+        "passingScore": 80
+      },
+      "interviewQuestions": [
+        {
+          "question": "Walk me through your capstone project architecture.",
+          "expectedAnswer": "Explain the problem, your solution approach, key components, data flow, technology choices, and trade-offs. Focus on why you made each decision.",
+          "difficulty": "intermediate"
+        },
+        {
+          "question": "What was the biggest technical challenge in your capstone?",
+          "expectedAnswer": "Describe the challenge, your approach to solving it, alternatives considered, and what you learned. Show problem-solving process.",
+          "difficulty": "intermediate"
+        },
+        {
+          "question": "What would you do differently if you started over?",
+          "expectedAnswer": "Reflect on mistakes, missed opportunities, and lessons learned. Show growth mindset and self-awareness about technical decisions.",
+          "difficulty": "advanced"
+        }
+      ],
+      "completionCriteria": {
+        "required": ["ex12-1", "ex12-2", "ex12-3", "ch12", "quiz12"],
+        "minimumQuizScore": 80
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "term": "LLM",
+      "definition": "Large Language Model — a neural network trained on massive text data to understand and generate human language."
+    },
+    {
+      "term": "Transformer",
+      "definition": "The architecture underlying modern LLMs, based on self-attention mechanisms."
+    },
+    {
+      "term": "Token",
+      "definition": "A chunk of text that the model processes. Can be a word, part of a word, or a character."
+    },
+    {
+      "term": "Context Window",
+      "definition": "The maximum number of tokens an LLM can process in a single request."
+    },
+    {
+      "term": "Prompt",
+      "definition": "The input text provided to an LLM to generate a response."
+    },
+    {
+      "term": "Fine-tuning",
+      "definition": "Adapting a pre-trained model to specific tasks using task-specific data."
+    },
+    {
+      "term": "RLHF",
+      "definition": "Reinforcement Learning from Human Feedback — aligning model outputs with human preferences."
+    },
+    {
+      "term": "RAG",
+      "definition": "Retrieval-Augmented Generation — combining LLMs with external knowledge retrieval."
+    },
+    {
+      "term": "Embedding",
+      "definition": "A numerical representation of text in a vector space."
+    },
+    {
+      "term": "Inference",
+      "definition": "The process of generating outputs from a trained model."
+    },
+    {
+      "term": "LoRA",
+      "definition": "Low-Rank Adaptation — a parameter-efficient fine-tuning method that trains small adapter matrices."
+    },
+    {
+      "term": "Quantization",
+      "definition": "Reducing model weight precision (e.g., to 4-bit) to decrease size and memory requirements."
+    },
+    {
+      "term": "Self-Attention",
+      "definition": "A mechanism allowing each token to compute relevance scores with every other token in a sequence."
+    },
+    {
+      "term": "BPE",
+      "definition": "Byte Pair Encoding — a subword tokenization algorithm that iteratively merges frequent byte pairs."
+    },
+    {
+      "term": "Hallucination",
+      "definition": "When an LLM generates plausible-sounding but factually incorrect information."
+    },
+    {
+      "term": "Guardrails",
+      "definition": "Constraints and checks that ensure LLM outputs meet safety, quality, and compliance requirements."
+    },
+    {
+      "term": "Agent",
+      "definition": "An autonomous system using an LLM as a reasoning engine to plan, decide, and execute tasks with tools."
+    },
+    {
+      "term": "Chain-of-Thought",
+      "definition": "A prompting technique that asks the model to show reasoning step by step before giving an answer."
+    },
+    {
+      "term": "Distillation",
+      "definition": "Training a smaller model to mimic a larger teacher model's behavior, transferring knowledge."
+    },
+    {
+      "term": "Streaming",
+      "definition": "Sending LLM response tokens to the user as they're generated rather than waiting for completion."
+    }
+  ],
+  "roadmap": [
+    {
+      "level": "Beginner",
+      "description": "Foundations of LLM Engineering",
+      "modules": ["foundations"]
+    },
+    {
+      "level": "Intermediate",
+      "description": "Core Techniques and Applied Engineering",
+      "modules": ["core-techniques", "applied-engineering"]
+    },
+    {
+      "level": "Advanced",
+      "description": "Production and Capstone",
+      "modules": ["production"]
+    }
+  ]
+}
