@@ -39,39 +39,23 @@ const AELAcademy = {
      Data Loading
      ───────────────────────────────────────────── */
 
-  fetchLocal(url) {
-    try {
-      const xhr = new XMLHttpRequest();
-      xhr.open('GET', url, false);
-      xhr.send();
-      if (xhr.status === 200 || xhr.status === 0) return JSON.parse(xhr.responseText);
-    } catch (e) {}
-    return null;
-  },
-
   async loadData() {
     try {
-      let academyData = null;
-      let questionsData = null;
-
-      try {
-        const [academyRes, questionsRes] = await Promise.all([
-          fetch('academy.json'),
-          fetch('questions.json').catch(() => ({ ok: false }))
-        ]);
-        if (academyRes.ok) academyData = await academyRes.json();
-        if (questionsRes.ok) questionsData = await questionsRes.json();
-      } catch (e) {
-        academyData = this.fetchLocal('academy.json');
-        questionsData = this.fetchLocal('questions.json');
+      if (window.ACADEMY_DATA) {
+        this.data = window.ACADEMY_DATA;
+      } else {
+        const r = await fetch('academy.json');
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        this.data = await r.json();
       }
-
-      if (!academyData) academyData = this.fetchLocal('academy.json');
-      if (!questionsData) questionsData = this.fetchLocal('questions.json');
-
-      if (!academyData) throw new Error('Cannot load academy.json');
-      this.data = academyData;
-      this.questions = questionsData?.questions || [];
+      if (window.QUESTIONS_DATA) {
+        this.questions = window.QUESTIONS_DATA.questions || [];
+      } else {
+        try {
+          const r = await fetch('questions.json');
+          if (r.ok) { const d = await r.json(); this.questions = d.questions || []; }
+        } catch (e) { this.questions = []; }
+      }
       this.questionIndex = this.buildQuestionIndex();
     } catch (err) {
       console.error('Failed to load academy data:', err);
