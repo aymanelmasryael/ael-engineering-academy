@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ael-module-schema",
+  "title": "AEL Module",
+  "description": "Course module — groups weeks into logical units",
+  "type": "object",
+  "required": ["id", "courseId", "name", "description", "weeks"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^MOD-[A-Z0-9-]+$",
+      "description": "Unique module identifier"
+    },
+    "courseId": {
+      "type": "string",
+      "pattern": "^CRSE-[A-Z0-9-]+$",
+      "description": "Parent course ID"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1000
+    },
+    "number": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Module order within course"
+    },
+    "color": {
+      "type": "string",
+      "pattern": "^#[0-9A-Fa-f]{6}$",
+      "description": "Theme color for UI rendering"
+    },
+    "weeks": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^WK-\\d{2}$"
+      },
+      "minItems": 1,
+      "description": "Array of week IDs in order"
+    },
+    "prerequisites": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^MOD-[A-Z0-9-]+$"
+      },
+      "description": "Module IDs that must be completed first"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

@@ -73,10 +73,12 @@ const AELAcademy = {
   buildQuestionIndex() {
     const idx = { byWeek: {}, byModule: {}, byDifficulty: {}, byTag: {}, byType: {} };
     (this.questions || []).forEach(q => {
-      if (!idx.byWeek[q.week]) idx.byWeek[q.week] = [];
-      idx.byWeek[q.week].push(q);
-      if (!idx.byModule[q.module]) idx.byModule[q.module] = [];
-      idx.byModule[q.module].push(q);
+      const week = q.weekId || q.week;
+      const mod = q.moduleId || q.module;
+      if (!idx.byWeek[week]) idx.byWeek[week] = [];
+      idx.byWeek[week].push(q);
+      if (!idx.byModule[mod]) idx.byModule[mod] = [];
+      idx.byModule[mod].push(q);
       if (!idx.byDifficulty[q.difficulty]) idx.byDifficulty[q.difficulty] = [];
       idx.byDifficulty[q.difficulty].push(q);
       if (!idx.byType[q.type]) idx.byType[q.type] = [];
@@ -90,7 +92,7 @@ const AELAcademy = {
   },
 
   getQuestionsForWeek(weekId) {
-    return this.questionIndex.byWeek?.[weekId] || this.questions.filter(q => q.week === weekId);
+    return this.questionIndex.byWeek?.[weekId] || this.questions.filter(q => (q.weekId || q.week) === weekId);
   },
 
   searchQuestions(query) {
@@ -137,12 +139,7 @@ const AELAcademy = {
   },
 
   toggleProgress(itemId) {
-    if (this.state.progress[itemId]) {
-      delete this.state.progress[itemId];
-    } else {
-      this.state.progress[itemId] = { completed: true, timestamp: Date.now() };
-    }
-    this.saveState();
+    AELProgress.toggleItem(this.state, itemId);
     this.render();
   },
 
@@ -162,7 +159,7 @@ const AELAcademy = {
   },
 
   isCompleted(itemId) {
-    return !!this.state.progress[itemId];
+    return AELProgress.isCompleted(this.state, itemId);
   },
 
   /* ─────────────────────────────────────────────
@@ -184,7 +181,7 @@ const AELAcademy = {
       this.state.currentWeek = weekId;
       const week = this.getWeekById(weekId);
       if (week) {
-        this.state.currentModule = week.module;
+        this.state.currentModule = week.moduleId;
       }
       this.state.currentView = 'week';
     } else if (hash.startsWith('module-')) {
@@ -235,6 +232,13 @@ const AELAcademy = {
     return this.data?.modules?.find(m => m.id === moduleId);
   },
 
+  resolveLo(loId) { return this.data?.learningOutcomes?.find(lo => lo.id === loId); },
+  resolveRef(refId) { return this.data?.referenceTopics?.find(r => r.id === refId); },
+  resolveExercise(exId) { return this.data?.exercises?.find(ex => ex.id === exId); },
+  resolveChallenge(chId) { return this.data?.challenges?.find(ch => ch.id === chId); },
+  resolveQuiz(qzId) { return this.data?.quizzes?.find(qz => qz.id === qzId); },
+  resolveInterview(intId) { return this.data?.interviews?.find(iq => iq.id === intId); },
+
   getModuleWeeks(moduleId) {
     const mod = this.getModuleById(moduleId);
     if (!mod) return [];
@@ -259,10 +263,10 @@ const AELAcademy = {
     if (!week) return { total: 0, done: 0, percent: 0 };
 
     const items = [
-      ...(week.exercises || []).map(ex => ex.id),
-      week.challenge ? week.challenge.id : null,
-      week.quiz ? week.quiz.id : null,
-      ...(week.interviewQuestions || []).map((_, i) => weekId + '-iq-' + i)
+      ...(week.exercises || []).map(ex => typeof ex === 'string' ? ex : ex.id),
+      week.challenge ? (typeof week.challenge === 'string' ? week.challenge : week.challenge.id) : null,
+      week.quiz ? (typeof week.quiz === 'string' ? week.quiz : week.quiz.id) : null,
+      ...(week.interviews || week.interviewQuestions || []).map((iq, i) => typeof iq === 'string' ? iq : (weekId + '-iq-' + i))
     ].filter(Boolean);
 
     const done = items.filter(id => this.isCompleted(id)).length;
@@ -311,7 +315,7 @@ const AELAcademy = {
   getQuizProgress() {
     const allWeeks = this.getAllWeeks();
     const quizzes = allWeeks.filter(w => w.quiz);
-    const completed = quizzes.filter(w => this.state.quizResults[w.quiz.id]);
+    const completed = quizzes.filter(w => this.state.quizResults[w.id]);
     return {
       total: quizzes.length,
       done: completed.length,
@@ -322,7 +326,7 @@ const AELAcademy = {
   getProjectProgress() {
     const allWeeks = this.getAllWeeks();
     const challenges = allWeeks.filter(w => w.challenge);
-    const completed = challenges.filter(w => this.isCompleted(w.challenge.id));
+    const completed = challenges.filter(w => this.isCompleted(typeof w.challenge === 'string' ? w.challenge : w.challenge.id));
     return {
       total: challenges.length,
       done: completed.length,
@@ -344,8 +348,9 @@ const AELAcademy = {
     const allWeeks = this.getAllWeeks();
     const eligible = allWeeks.filter(w => {
       if (!w.quiz) return false;
-      const result = this.state.quizResults[w.quiz.id];
-      return result && result.score >= (w.quiz.passingScore || 80);
+      const result = this.state.quizResults[w.id];
+      const quizObj = typeof w.quiz === 'string' ? this.resolveQuiz(w.quiz) : w.quiz;
+      return result && result.score >= (quizObj?.passingScore || 80);
     });
     const pct = allWeeks.length > 0
       ? Math.round((eligible.length / allWeeks.length) * 100)
@@ -521,7 +526,7 @@ const AELAcademy = {
       const li = document.createElement('li');
       const isActive = this.state.currentWeek === week.id;
       li.className = 'week-item' + (isActive ? ' active' : '');
-      li.addEventListener('click', () => this.navigateTo('week', week.module, week.id));
+      li.addEventListener('click', () => this.navigateTo('week', week.moduleIdId, week.id));
 
       const num = document.createElement('span');
       num.className = 'week-number';
@@ -625,7 +630,7 @@ const AELAcademy = {
 
   createCurrentWeekCard(week) {
     const prog = this.getWeekProgress(week.id);
-    const mod = this.getModuleById(week.module);
+    const mod = this.getModuleById(week.moduleId);
     const card = document.createElement('div');
     card.className = 'card';
     card.innerHTML = `
@@ -648,7 +653,7 @@ const AELAcademy = {
       </div>`;
 
     card.querySelector('[data-action="start-week"]').addEventListener('click', () => {
-      this.navigateTo('week', week.module, week.id);
+      this.navigateTo('week', week.moduleId, week.id);
     });
 
     const header = card.querySelector('.card-header');
@@ -715,22 +720,26 @@ const AELAcademy = {
     (this.questions || []).forEach(q => {
       if (q.question.toLowerCase().includes(query) || q.answer.toLowerCase().includes(query) ||
           (q.tags || []).some(t => t.toLowerCase().includes(query))) {
-        const week = this.getWeekById(q.week);
+        const week = this.getWeekById(q.weekId || q.week);
         results.push({ type: 'qa', week, item: q });
       }
     });
 
     (this.data.weeks || []).forEach(week => {
-      (week.exercises || []).forEach(ex => {
-        if (ex.title.toLowerCase().includes(query) || ex.description.toLowerCase().includes(query)) {
+      (week.exercises || []).forEach(exId => {
+        const ex = typeof exId === 'string' ? this.resolveExercise(exId) : exId;
+        if (ex && (ex.title.toLowerCase().includes(query) || ex.description.toLowerCase().includes(query))) {
           results.push({ type: 'exercise', week, item: ex });
         }
       });
-      if (week.challenge && (week.challenge.title.toLowerCase().includes(query) || week.challenge.description.toLowerCase().includes(query))) {
-        results.push({ type: 'challenge', week, item: week.challenge });
+      const ch = typeof week.challenge === 'string' ? this.resolveChallenge(week.challenge) : week.challenge;
+      if (ch && (ch.title.toLowerCase().includes(query) || ch.description.toLowerCase().includes(query))) {
+        results.push({ type: 'challenge', week, item: ch });
       }
-      (week.reference?.topics || []).forEach(topic => {
-        if (topic.name.toLowerCase().includes(query) || topic.content.toLowerCase().includes(query)) {
+      const refIds = week.referenceTopics || [];
+      refIds.forEach(refId => {
+        const topic = this.resolveRef(refId);
+        if (topic && (topic.name.toLowerCase().includes(query) || topic.content.toLowerCase().includes(query))) {
           results.push({ type: 'topic', week, item: topic });
         }
       });
@@ -770,7 +779,7 @@ const AELAcademy = {
         </div>`;
 
       card.querySelector('.card-header').addEventListener('click', () => {
-        this.navigateTo('week', r.week.module, r.week.id);
+        this.navigateTo('week', r.week.moduleId, r.week.id);
       });
 
       fragment.appendChild(card);
@@ -837,7 +846,7 @@ const AELAcademy = {
         </div>`;
 
       card.querySelector('[data-action="open-week"]').addEventListener('click', () => {
-        this.navigateTo('week', week.module, week.id);
+        this.navigateTo('week', week.moduleId, week.id);
       });
 
       card.querySelector('.card-header').addEventListener('click', () => {
@@ -858,7 +867,7 @@ const AELAcademy = {
     const week = this.getWeekById(this.state.currentWeek);
     if (!week) return this.renderDashboard();
 
-    const mod = this.getModuleById(week.module);
+    const mod = this.getModuleById(week.moduleId);
     const fragment = document.createDocumentFragment();
 
     const title = document.createElement('h2');
@@ -882,6 +891,12 @@ const AELAcademy = {
   renderLearningOutcomes(week) {
     if (!week.learningOutcomes?.length) return document.createDocumentFragment();
 
+    const resolved = week.learningOutcomes
+      .map(id => typeof id === 'string' ? this.resolveLo(id) : id)
+      .filter(Boolean);
+
+    if (!resolved.length) return document.createDocumentFragment();
+
     const card = document.createElement('div');
     card.className = 'card';
     card.innerHTML = `
@@ -891,7 +906,7 @@ const AELAcademy = {
       </div>
       <div class="card-body expanded">
         <ul class="outcomes-list">
-          ${week.learningOutcomes.map(o => `<li class="outcome-item">${this.escapeHtml(o)}</li>`).join('')}
+          ${resolved.map(o => `<li class="outcome-item">${this.escapeHtml(o.statement || o)}</li>`).join('')}
         </ul>
       </div>`;
 
@@ -905,7 +920,14 @@ const AELAcademy = {
   /* ── Reference Section ── */
 
   renderReferenceSection(week) {
-    if (!week.reference?.topics?.length) return document.createDocumentFragment();
+    const refIds = week.referenceTopics || week.reference?.topics || [];
+    if (!refIds.length) return document.createDocumentFragment();
+
+    const resolved = refIds
+      .map(id => typeof id === 'string' ? this.resolveRef(id) : id)
+      .filter(Boolean);
+
+    if (!resolved.length) return document.createDocumentFragment();
 
     const fragment = document.createDocumentFragment();
 
@@ -914,17 +936,10 @@ const AELAcademy = {
     sectionTitle.innerHTML = '<span class="accent">&#128214;</span> Reference';
     fragment.appendChild(sectionTitle);
 
-    week.reference.topic?.forEach?.((topic, i) => {
+    resolved.forEach((topic, i) => {
       const card = this.createTopicCard(topic, week.id, i);
       fragment.appendChild(card);
     });
-
-    if (week.reference.topics) {
-      week.reference.topics.forEach((topic, i) => {
-        const card = this.createTopicCard(topic, week.id, i);
-        fragment.appendChild(card);
-      });
-    }
 
     return fragment;
   },
@@ -961,8 +976,7 @@ const AELAcademy = {
   renderQuestionsSection(week) {
     const questions = this.getQuestionsForWeek(week.id);
     if (!questions || questions.length === 0) {
-      if (!week.questions?.length) return document.createDocumentFragment();
-      return this.renderLegacyQuestions(week);
+      return document.createDocumentFragment();
     }
 
     const fragment = document.createDocumentFragment();
@@ -1116,35 +1130,19 @@ const AELAcademy = {
     return card;
   },
 
-  renderLegacyQuestions(week) {
-    const fragment = document.createDocumentFragment();
-    const sectionTitle = document.createElement('h3');
-    sectionTitle.className = 'section-title';
-    sectionTitle.innerHTML = '<span class="accent">&#10067;</span> Questions & Answers';
-    fragment.appendChild(sectionTitle);
 
-    week.questions.forEach((q, i) => {
-      const itemId = q.id;
-      const isOpen = this.state.expandedItems[itemId];
-      const item = document.createElement('div');
-      item.className = 'qa-card' + (isOpen ? ' open' : '');
-      item.innerHTML = `
-        <div class="qa-question" data-action="toggle">${this.escapeHtml(q.question)}</div>
-        <div class="qa-answer ${isOpen ? 'show' : ''}"><p>${this.escapeHtml(q.answer)}</p></div>`;
-      item.querySelector('[data-action="toggle"]').addEventListener('click', () => {
-        this.toggleExpand(itemId);
-        item.classList.toggle('open');
-        item.querySelector('.qa-answer').classList.toggle('show');
-      });
-      fragment.appendChild(item);
-    });
-    return fragment;
-  },
 
   /* ── Exercises Section ── */
 
   renderExercisesSection(week) {
-    if (!week.exercises?.length) return document.createDocumentFragment();
+    const exIds = week.exercises || [];
+    if (!exIds.length) return document.createDocumentFragment();
+
+    const resolved = exIds
+      .map(id => typeof id === 'string' ? this.resolveExercise(id) : id)
+      .filter(Boolean);
+
+    if (!resolved.length) return document.createDocumentFragment();
 
     const fragment = document.createDocumentFragment();
     const sectionTitle = document.createElement('h3');
@@ -1155,7 +1153,7 @@ const AELAcademy = {
     const list = document.createElement('div');
     list.className = 'exercise-list';
 
-    week.exercises.forEach((ex, i) => {
+    resolved.forEach((ex, i) => {
       const done = this.isCompleted(ex.id);
       const item = document.createElement('div');
       item.className = 'exercise-item';
@@ -1188,7 +1186,9 @@ const AELAcademy = {
   renderChallengeSection(week) {
     if (!week.challenge) return document.createDocumentFragment();
 
-    const ch = week.challenge;
+    const ch = typeof week.challenge === 'string' ? this.resolveChallenge(week.challenge) : week.challenge;
+    if (!ch) return document.createDocumentFragment();
+
     const done = this.isCompleted(ch.id);
 
     const card = document.createElement('div');
@@ -1233,8 +1233,10 @@ const AELAcademy = {
   renderQuizSection(week) {
     if (!week.quiz) return document.createDocumentFragment();
 
-    const quiz = week.quiz;
-    const result = this.state.quizResults[quiz.id];
+    const quiz = typeof week.quiz === 'string' ? this.resolveQuiz(week.quiz) : week.quiz;
+    if (!quiz) return document.createDocumentFragment();
+
+    const result = this.state.quizResults[week.id];
 
     const card = document.createElement('div');
     card.className = 'card';
@@ -1311,7 +1313,7 @@ const AELAcademy = {
   },
 
   generateQuizQuestions(week) {
-    const pool = week.questions || [];
+    const pool = this.getQuestionsForWeek(week.id) || [];
     const shuffled = [...pool].sort(() => Math.random() - 0.5);
     return shuffled.slice(0, Math.min(10, shuffled.length));
   },
@@ -1425,15 +1427,16 @@ const AELAcademy = {
     });
 
     const score = questions.length > 0 ? Math.round((correct / questions.length) * 100) : 0;
-    this.state.quizResults[week.quiz.id] = {
+    const quizObj = typeof week.quiz === 'string' ? this.resolveQuiz(week.quiz) : week.quiz;
+    this.state.quizResults[week.id] = {
       score,
       correct,
       total: questions.length,
       timestamp: Date.now()
     };
 
-    if (score >= (week.quiz.passingScore || 80)) {
-      this.toggleProgress(week.quiz.id);
+    if (score >= (quizObj?.passingScore || 80)) {
+      this.toggleProgress(week.id);
     }
 
     this.saveState();
@@ -1446,7 +1449,7 @@ const AELAcademy = {
       title.innerHTML = `<span class="accent">&#128221;</span> Quiz Results: Week ${week.number}`;
       container.appendChild(title);
 
-      const passed = score >= (week.quiz.passingScore || 80);
+      const passed = score >= (quizObj?.passingScore || 80);
       const resultCard = document.createElement('div');
       resultCard.className = 'card';
       resultCard.innerHTML = `
@@ -1477,7 +1480,14 @@ const AELAcademy = {
   /* ── Interview Section ── */
 
   renderInterviewSection(week) {
-    if (!week.interviewQuestions?.length) return document.createDocumentFragment();
+    const intIds = week.interviews || week.interviewQuestions || [];
+    if (!intIds.length) return document.createDocumentFragment();
+
+    const resolved = intIds
+      .map(id => typeof id === 'string' ? this.resolveInterview(id) : id)
+      .filter(Boolean);
+
+    if (!resolved.length) return document.createDocumentFragment();
 
     const fragment = document.createDocumentFragment();
     const sectionTitle = document.createElement('h3');
@@ -1488,7 +1498,7 @@ const AELAcademy = {
     const list = document.createElement('div');
     list.className = 'interview-list';
 
-    week.interviewQuestions.forEach((iq, i) => {
+    resolved.forEach((iq, i) => {
       const itemId = week.id + '-iq-' + i;
       const isOpen = this.state.expandedItems[itemId];
 

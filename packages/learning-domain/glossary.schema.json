@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ael-glossary-schema",
+  "title": "AEL Glossary Term",
+  "description": "Glossary term — definition and context",
+  "type": "object",
+  "required": ["id", "term", "definition"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^GL-[A-Z0-9-]+$",
+      "description": "Unique glossary term identifier"
+    },
+    "term": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "definition": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1000
+    },
+    "abbreviations": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Alternative abbreviations or acronyms"
+    },
+    "relatedTerms": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^GL-[A-Z0-9-]+$" }
+    },
+    "concepts": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^CON-[A-Z0-9-]+$" }
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

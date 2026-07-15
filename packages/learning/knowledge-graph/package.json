@@ -1,0 +1,14 @@
+{
+  "name": "@ael/learning-knowledge-graph",
+  "version": "1.0.0",
+  "description": "Knowledge Graph package for AEL Learning Domain Model",
+  "main": "graph.js",
+  "exports": {
+    ".": "./graph.js",
+    "./builder": "./builder.js",
+    "./validator": "./validator.js"
+  },
+  "keywords": ["ael", "learning", "knowledge-graph", "domain-model"],
+  "author": "Ayman Elmasry — AEL Digital Studio",
+  "license": "MIT"
+}

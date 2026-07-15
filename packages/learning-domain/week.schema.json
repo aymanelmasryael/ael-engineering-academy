@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ael-week-schema",
+  "title": "AEL Week",
+  "description": "Learning week — primary unit of curriculum delivery",
+  "type": "object",
+  "required": ["id", "moduleId", "number", "title"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^WK-\\d{2}$",
+      "description": "Unique week identifier (WK-01 to WK-99)"
+    },
+    "moduleId": {
+      "type": "string",
+      "pattern": "^MOD-[A-Z0-9-]+$",
+      "description": "Parent module ID"
+    },
+    "number": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 99,
+      "description": "Week number within module"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1000
+    },
+    "concepts": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^CON-[A-Z0-9-]+$"
+      },
+      "description": "Concept IDs covered in this week"
+    },
+    "learningOutcomes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^LO-[A-Z0-9-]+$"
+      },
+      "description": "Learning outcome IDs for this week"
+    },
+    "referenceTopics": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^REF-[A-Z0-9-]+$"
+      },
+      "description": "Reference topic IDs for this week"
+    },
+    "exercises": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^EX-[A-Z0-9-]+$"
+      },
+      "description": "Exercise IDs for this week"
+    },
+    "challenge": {
+      "type": "string",
+      "pattern": "^CH-[A-Z0-9-]+$",
+      "description": "Challenge ID for this week"
+    },
+    "quiz": {
+      "type": "string",
+      "pattern": "^QZ-\\d{2}$",
+      "description": "Quiz ID for this week"
+    },
+    "project": {
+      "type": "string",
+      "pattern": "^PRJ-[A-Z0-9-]+$",
+      "description": "Project ID for this week (if any)"
+    },
+    "completionCriteria": {
+      "type": "object",
+      "properties": {
+        "required": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "IDs of items that must be completed"
+        },
+        "minimumQuizScore": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        }
+      }
+    }
+  }
+}

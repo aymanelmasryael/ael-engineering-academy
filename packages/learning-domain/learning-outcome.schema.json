@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ael-learning-outcome-schema",
+  "title": "AEL Learning Outcome",
+  "description": "Measurable learning outcome — what the learner will be able to do",
+  "type": "object",
+  "required": ["id", "weekId", "statement"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^LO-[A-Z0-9-]+$",
+      "description": "Unique learning outcome identifier"
+    },
+    "weekId": {
+      "type": "string",
+      "pattern": "^WK-\\d{2}$"
+    },
+    "moduleId": {
+      "type": "string",
+      "pattern": "^MOD-[A-Z0-9-]+$"
+    },
+    "conceptId": {
+      "type": "string",
+      "pattern": "^CON-[A-Z0-9-]+$",
+      "description": "Concept this outcome is tied to"
+    },
+    "statement": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500,
+      "description": "Measurable outcome statement (e.g., 'Explain what an LLM is')"
+    },
+    "taxonomy": {
+      "type": "string",
+      "enum": ["remember", "understand", "apply", "analyze", "evaluate", "create"],
+      "description": "Bloom's taxonomy level"
+    },
+    "assessmentCriteria": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "How to assess this outcome"
+    },
+    "evidence": {
+      "type": "object",
+      "properties": {
+        "questions": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^Q-[A-Z0-9-]+$" }
+        },
+        "exercises": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^EX-[A-Z0-9-]+$" }
+        },
+        "challenges": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^CH-[A-Z0-9-]+$" }
+        }
+      },
+      "description": "Assessment items that demonstrate this outcome"
+    }
+  }
+}

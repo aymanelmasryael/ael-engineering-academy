@@ -6,10 +6,13 @@
 [![Version](https://img.shields.io/badge/version-1.0.0-green.svg)](CHANGELOG.md)
 [![Questions](https://img.shields.io/badge/questions-741+-gold.svg)](#qa-knowledge-base)
 [![Weeks](https://img.shields.io/badge/weeks-12-blue.svg)](#curriculum)
+[![IDs](https://img.shields.io/badge/IDs-1039-purple.svg)](#stable-id-system)
 
 ## What is this?
 
 A complete, self-contained learning platform for LLM Engineering. Pure HTML/CSS/JavaScript — no frameworks, no build tools, no dependencies. Just open `index.html` in your browser.
+
+Built on top of the AEL Reference Framework with a Learning Domain Model, stable IDs, and a Knowledge Graph.
 
 ## Quick Start
 
@@ -23,8 +26,6 @@ open index.html
 
 # Or serve locally
 npx serve .
-# or
-python3 -m http.server 8080
 ```
 
 ## Curriculum
@@ -58,32 +59,49 @@ python3 -m http.server 8080
 - Interview relevance
 - Tags and source references
 
-### Coverage
+## Stable ID System
 
-| Week | Questions |
-|------|-----------|
-| Week 1 | 80 |
-| Week 2 | 50 |
-| Week 3 | 50 |
-| Week 4 | 50 |
-| Week 5 | 86 |
-| Week 6 | 80 |
-| Week 7 | 50 |
-| Week 8 | 50 |
-| Week 9 | 50 |
-| Week 10 | 65 |
-| Week 11 | 80 |
-| Week 12 | 50 |
-| **Total** | **741** |
+Every entity has a stable, domain-driven ID:
+
+| Prefix | Entity | Count |
+|--------|--------|-------|
+| CRSE- | Course | 1 |
+| MOD- | Module | 4 |
+| WK- | Week | 12 |
+| CON- | Concept | 47 |
+| LO- | Learning Outcome | 60 |
+| Q- | Question | 741 |
+| EX- | Exercise | 36 |
+| CH- | Challenge | 24 |
+| QZ- | Quiz | 12 |
+| INT- | Interview | 36 |
+| REF- | Reference | 47 |
+| GL- | Glossary | 20 |
+
+**Total: 1,039 unique IDs**
+
+## Knowledge Graph
+
+Built-in knowledge graph with:
+- 1,039 nodes across 11 entity types
+- 1,092 edges across 10 relationship types
+- Prerequisite chain resolution
+- Related concept discovery
+- Path finding between any two entities
+- Full-text search across all entities
 
 ## Architecture
 
 ```
 index.html              → App shell
 ├── data.js             → Embedded data (academy + questions)
+├── academy.js          → Product layer (branding, colors)
+├── academy.css         → Product styles
 ├── packages/
-│   ├── progress/       → Progress tracking
-│   └── quiz/           → Quiz grading
+│   ├── progress/       → Progress tracking (v2)
+│   ├── quiz/           → Quiz grading
+│   ├── learning-domain/ → Domain schemas + migration
+│   └── knowledge-graph/ → Knowledge graph package
 ├── plugins/
 │   ├── search/         → Cross-content search
 │   ├── export/         → Export progress/notes
@@ -97,13 +115,24 @@ index.html              → App shell
 - **SPA Architecture** — No page reloads, hash-based routing
 - **741+ Q&A Questions** — Complete curriculum coverage
 - **Progress Tracking** — localStorage persistence
-- **Search** — Cross-indexed across questions + curriculum
+- **Search** — Cross-indexed across questions, concepts, glossary
 - **Favorites** — Bookmark any question
 - **Copy** — One-click copy question + answer
 - **Filter** — By difficulty level
 - **Dark Mode** — AEL design system
 - **Responsive** — Works on desktop and mobile
+- **Knowledge Graph** — Entity relationships and path finding
+- **Export** — Progress and notes export
 - **Zero Dependencies** — Pure HTML/CSS/JS
+- **Offline Mode** — Works without internet
+
+## Validation
+
+- 0 broken references
+- 0 duplicate IDs
+- 0 circular dependencies
+- 0 validation errors
+- Domain validation passed
 
 ## Author
 

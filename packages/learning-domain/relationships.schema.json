@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ael-relationships-schema",
+  "title": "AEL Entity Relationships",
+  "description": "Defines valid relationships between domain entities",
+  "type": "object",
+  "definitions": {
+    "course": {
+      "contains": ["module"],
+      "required": ["module"]
+    },
+    "module": {
+      "contains": ["week"],
+      "required": ["week"],
+      "prerequisites": ["module"]
+    },
+    "week": {
+      "contains": ["concept", "learningOutcome", "reference", "exercise", "challenge", "quiz", "project"],
+      "required": ["concept"],
+      "belongsTo": "module"
+    },
+    "concept": {
+      "contains": ["learningOutcome", "question"],
+      "belongsTo": "week",
+      "prerequisites": ["concept"],
+      "relatedTo": ["concept"]
+    },
+    "learningOutcome": {
+      "belongsTo": ["week", "concept"],
+      "assessedBy": ["question", "exercise", "challenge"]
+    },
+    "question": {
+      "belongsTo": ["week", "concept", "module"],
+      "tests": ["concept", "learningOutcome"],
+      "relatedTo": ["question"]
+    },
+    "exercise": {
+      "belongsTo": ["week", "module"],
+      "practices": ["concept"],
+      "addresses": ["learningOutcome"]
+    },
+    "challenge": {
+      "belongsTo": ["week", "module"],
+      "integrates": ["concept"],
+      "addresses": ["learningOutcome"],
+      "dependsOn": ["exercise"]
+    },
+    "quiz": {
+      "belongsTo": ["week", "module"],
+      "drawsFrom": ["question"],
+      "covers": ["concept"]
+    },
+    "interview": {
+      "belongsTo": ["week", "module"],
+      "covers": ["concept"]
+    },
+    "project": {
+      "belongsTo": ["week", "module"],
+      "integrates": ["concept", "challenge"],
+      "addresses": ["learningOutcome"]
+    },
+    "reference": {
+      "belongsTo": ["week", "concept"],
+      "explains": ["concept"]
+    },
+    "glossary": {
+      "defines": ["concept"],
+      "relatedTo": ["glossary"]
+    }
+  },
+  "validationRules": {
+    "noOrphanedEntities": "Every entity must belong to a parent",
+    "noCircularPrerequisites": "Prerequisite chains must be acyclic",
+    "noBrokenReferences": "All referenced IDs must exist",
+    "noDuplicateIDs": "Every entity ID must be unique",
+    "consistentHierarchy": "Child entities must reference valid parents",
+    "weekConceptCoverage": "Every week must have at least one concept",
+    "conceptLearningOutcomes": "Every concept must have at least one learning outcome",
+    "questionConceptLink": "Every question must link to a concept",
+    "exerciseConceptLink": "Every exercise must link to at least one concept",
+    "challengeExerciseLink": "Every challenge must reference prerequisite exercises"
+  }
+}

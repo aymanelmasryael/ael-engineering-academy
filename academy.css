@@ -1,0 +1,51 @@
+/* ═══════════════════════════════════════════════════════════════
+   AEL Engineering Academy — Product Styles
+   Academy-specific overrides and branding
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Academy Brand Colors ── */
+
+:root {
+  --ael-blue: #0074FF;
+  --ael-gold: #FFD700;
+  --ael-teal: #00FFCC;
+  --ael-purple: #6C47FF;
+  --ael-pink: #FF4D8D;
+  --ael-green: #00FF88;
+  --ael-red: #FF4444;
+}
+
+/* ── Module Color Accents ── */
+
+.module-foundations { border-left-color: var(--ael-green); }
+.module-core { border-left-color: var(--ael-blue); }
+.module-applied { border-left-color: var(--ael-purple); }
+.module-production { border-left-color: var(--ael-gold); }
+
+/* ── Academy Header ── */
+
+.header-brand {
+  font-weight: 700;
+  font-size: 1.1rem;
+  background: linear-gradient(135deg, var(--ael-blue), var(--ael-teal));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Certificate Styling ── */
+
+.certificate-card {
+  background: linear-gradient(135deg, rgba(0,116,255,0.1), rgba(0,255,204,0.1));
+  border: 1px solid rgba(0,116,255,0.3);
+  border-radius: var(--radius);
+  padding: 2rem;
+  text-align: center;
+}
+
+/* ── Academy-Specific Utility ── */
+
+.text-ael-blue { color: var(--ael-blue); }
+.text-ael-gold { color: var(--ael-gold); }
+.text-ael-teal { color: var(--ael-teal); }
+.text-ael-green { color: var(--ael-green); }

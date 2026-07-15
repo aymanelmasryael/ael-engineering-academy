@@ -1,0 +1,28 @@
+{
+  "name": "@ael/learning-domain",
+  "version": "1.0.0",
+  "description": "AEL Learning Domain Model — schemas, validation, and entity definitions",
+  "author": "Ayman Elmasry — AEL Digital Studio",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "validate": "node validate-domain.js",
+    "validate:verbose": "node validate-domain.js --verbose"
+  },
+  "schemas": {
+    "course": "course.schema.json",
+    "module": "module.schema.json",
+    "week": "week.schema.json",
+    "concept": "concept.schema.json",
+    "learningOutcome": "learning-outcome.schema.json",
+    "question": "question.schema.json",
+    "exercise": "exercise.schema.json",
+    "challenge": "challenge.schema.json",
+    "quiz": "quiz.schema.json",
+    "interview": "interview.schema.json",
+    "project": "project.schema.json",
+    "reference": "reference.schema.json",
+    "glossary": "glossary.schema.json",
+    "relationships": "relationships.schema.json"
+  }
+}

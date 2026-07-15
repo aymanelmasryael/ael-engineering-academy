@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ael-exercise-schema",
+  "title": "AEL Exercise",
+  "description": "Practice exercise — hands-on learning activity",
+  "type": "object",
+  "required": ["id", "weekId", "moduleId", "title", "description", "difficulty"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^EX-[A-Z0-9-]+-\\d{2}$",
+      "description": "Unique exercise identifier"
+    },
+    "weekId": {
+      "type": "string",
+      "pattern": "^WK-\\d{2}$"
+    },
+    "moduleId": {
+      "type": "string",
+      "pattern": "^MOD-[A-Z0-9-]+$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": ["basic", "intermediate", "advanced"]
+    },
+    "expectedTime": {
+      "type": "string",
+      "description": "Estimated completion time"
+    },
+    "learningOutcomes": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^LO-[A-Z0-9-]+$" },
+      "description": "Learning outcomes this exercise addresses"
+    },
+    "concepts": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^CON-[A-Z0-9-]+$" },
+      "description": "Concepts practiced in this exercise"
+    },
+    "prerequisites": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "What must be done before this exercise"
+    },
+    "deliverables": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "What the learner should produce"
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "url": { "type": "string", "format": "uri" }
+        }
+      }
+    }
+  }
+}

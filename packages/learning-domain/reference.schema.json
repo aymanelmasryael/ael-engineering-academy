@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ael-reference-schema",
+  "title": "AEL Reference Topic",
+  "description": "Reference content topic — detailed learning material",
+  "type": "object",
+  "required": ["id", "weekId", "moduleId", "name", "content"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^REF-[A-Z0-9-]+-\\d{2}$",
+      "description": "Unique reference topic identifier"
+    },
+    "weekId": {
+      "type": "string",
+      "pattern": "^WK-\\d{2}$"
+    },
+    "moduleId": {
+      "type": "string",
+      "pattern": "^MOD-[A-Z0-9-]+$"
+    },
+    "conceptId": {
+      "type": "string",
+      "pattern": "^CON-[A-Z0-9-]+$",
+      "description": "Concept this reference covers"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "content": {
+      "type": "string",
+      "minLength": 1
+    },
+    "keyPoints": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

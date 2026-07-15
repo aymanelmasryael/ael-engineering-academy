@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ael-question-schema",
+  "title": "AEL Question",
+  "description": "Q&A knowledge base question with full explanation",
+  "type": "object",
+  "required": ["id", "weekId", "moduleId", "conceptId", "type", "difficulty", "question", "answer"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^Q-[A-Z0-9-]+-\\d{3}$",
+      "description": "Unique question identifier (Q-{MODULE}-{NNN})"
+    },
+    "weekId": {
+      "type": "string",
+      "pattern": "^WK-\\d{2}$"
+    },
+    "moduleId": {
+      "type": "string",
+      "pattern": "^MOD-[A-Z0-9-]+$"
+    },
+    "conceptId": {
+      "type": "string",
+      "pattern": "^CON-[A-Z0-9-]+$",
+      "description": "Primary concept this question tests"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["definition", "conceptual", "practical", "comparison", "architecture", "design", "troubleshooting", "scenario", "best-practices", "code-writing", "case-study", "interview"]
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": ["beginner", "intermediate", "advanced", "expert", "interview"]
+    },
+    "question": {
+      "type": "string",
+      "minLength": 1
+    },
+    "answer": {
+      "type": "string",
+      "minLength": 1
+    },
+    "whyCorrect": {
+      "type": "string",
+      "description": "Explanation of why this answer is correct"
+    },
+    "whyOthersIncorrect": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "description": "Map of incorrect options to explanations"
+    },
+    "realWorldExample": {
+      "type": "string"
+    },
+    "commonMistakes": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "bestPractices": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "relatedConcepts": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Text-based concept references (legacy)"
+    },
+    "relatedQuestionIds": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^Q-[A-Z0-9-]+-\\d{3}$" },
+      "description": "Related question IDs"
+    },
+    "estimatedReadingTime": {
+      "type": "string"
+    },
+    "interviewRelevance": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "critical"]
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "source": {
+      "type": "string",
+      "description": "Where this question came from"
+    }
+  }
+}

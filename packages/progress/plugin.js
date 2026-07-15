@@ -1,7 +1,7 @@
-/* AEL Academy — Progress Package v1.0 */
+/* AEL Academy — Progress Package v2.0 */
 
 window.AELProgress = {
-  version: '1.0.0',
+  version: '2.0.0',
 
   STORAGE_KEY: 'ael-academy-state',
 
@@ -35,11 +35,15 @@ window.AELProgress = {
     return !!state.progress?.[itemId];
   },
 
+  resolveId(id) {
+    return typeof id === 'string' ? id : id?.id || null;
+  },
+
   weekProgress(state, week) {
     const items = [
-      ...(week.exercises || []).map(ex => ex.id),
-      week.challenge ? week.challenge.id : null,
-      week.quiz ? week.quiz.id : null
+      ...(week.exercises || []).map(ex => this.resolveId(ex)),
+      week.challenge ? this.resolveId(week.challenge) : null,
+      week.quiz ? this.resolveId(week.quiz) : null
     ].filter(Boolean);
 
     const done = items.filter(id => this.isCompleted(state, id)).length;

@@ -1,0 +1,108 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ael-concept-schema",
+  "title": "AEL Concept",
+  "description": "Core learning concept — the atomic unit of knowledge",
+  "type": "object",
+  "required": ["id", "weekId", "name", "description"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^CON-[A-Z0-9-]+$",
+      "description": "Unique concept identifier"
+    },
+    "weekId": {
+      "type": "string",
+      "pattern": "^WK-\\d{2}$",
+      "description": "Week where this concept is introduced"
+    },
+    "moduleId": {
+      "type": "string",
+      "pattern": "^MOD-[A-Z0-9-]+$",
+      "description": "Module containing this concept"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "definition",
+        "mechanism",
+        "architecture",
+        "technique",
+        "pattern",
+        "principle",
+        "tool",
+        "framework",
+        "algorithm",
+        "metric"
+      ],
+      "description": "Concept category"
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": ["beginner", "intermediate", "advanced", "expert"]
+    },
+    "prerequisites": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^CON-[A-Z0-9-]+$"
+      },
+      "description": "Concept IDs that must be learned first"
+    },
+    "relatedConcepts": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^CON-[A-Z0-9-]+$"
+      },
+      "description": "Related concept IDs"
+    },
+    "learningOutcomes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^LO-[A-Z0-9-]+$"
+      },
+      "description": "Learning outcome IDs tied to this concept"
+    },
+    "questions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^Q-[A-Z0-9-]+$"
+      },
+      "description": "Question IDs for this concept"
+    },
+    "referenceContent": {
+      "type": "string",
+      "description": "Detailed reference content for this concept"
+    },
+    "keyPoints": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Key points to remember"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "glossaryTerms": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^GL-[A-Z0-9-]+$"
+      },
+      "description": "Glossary term IDs related to this concept"
+    }
+  }
+}
