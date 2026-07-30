@@ -151,6 +151,17 @@ index.html              → App shell
 
 **Ayman Elmasry** — AEL Digital Studio
 
+---
+
+## 🔗 Related Resources
+
+- [AEL Learning Catalog](https://github.com/aymanelmasryael/ael-learning-catalog) — Central entry point to all AEL courses
+- [Learn GitHub](https://github.com/aymanelmasryael/ael-learn-github-course) — Master Git, GitHub workflows, CI/CD, and open source contribution
+- [LLM Reference](https://github.com/aymanelmasryael/ael-llm-engineering-reference-2026) — 103 LLM engineering concepts across 10 categories
+- [Learn OpenCode](https://github.com/aymanelmasryael/ael-learn-opencode-course) — From zero to professional with OpenCode agentic coding
+
+---
+
 ## License
 
 MIT License. See [LICENSE](LICENSE) for details.
