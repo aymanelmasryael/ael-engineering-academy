@@ -8,6 +8,19 @@
 [![Weeks](https://img.shields.io/badge/weeks-12-blue.svg)](#curriculum)
 [![IDs](https://img.shields.io/badge/IDs-1039-purple.svg)](#stable-id-system)
 
+---
+
+## 📚 Learning Metadata
+
+| | |
+|---|---|
+| **Learning Level** | Beginner to Expert (covers from zero to production) |
+| **Estimated Duration** | 12 weeks (4 modules × 3 weeks each) |
+| **Prerequisites** | Basic programming knowledge recommended but not required (self-contained platform) |
+| **Learning Outcomes** | After completing this course you will be able to understand LLM architecture, implement fine-tuning, build RAG systems, and deploy to production |
+
+---
+
 ## What is this?
 
 A complete, self-contained learning platform for LLM Engineering. Pure HTML/CSS/JavaScript — no frameworks, no build tools, no dependencies. Just open `index.html` in your browser.
